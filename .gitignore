@@ -1,0 +1,9 @@
+presentation.html
+neonpandora.html
+*.slides.html
+.idea/
+build/
+target/
+*.iml
+.ipynb_checkpoints/
+venv/
