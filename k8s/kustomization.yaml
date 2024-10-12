@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: jk8sdebug
+resources:
+  - jk8sdebug-sa.yaml
+  - jk8sdebug-deployment.yaml
+  - jk8sdebug-svc.yaml
+  - jk8sdebug-ns.yaml

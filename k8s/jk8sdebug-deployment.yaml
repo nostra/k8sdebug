@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jk8sdebug
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: jk8sdebug
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: jk8sdebug
+    spec:
+      serviceAccountName: jk8sdebug-sa
+      containers:
+        - name: jk8sdebug
+          image: jk8sdebug:0.0.1-SNAPSHOT
+          #env:
+          #  - name: JAVA_TOOL_OPTIONS
+          #    value: ""
+          ports:
+            - containerPort: 8080
+          startupProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 20
+            timeoutSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 1
+            periodSeconds: 10
+            timeoutSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 1
+            periodSeconds: 15
+            timeoutSeconds: 10
+          resources:
+            requests:
+              cpu: 500m
+              memory: 400Mi
+            #limits:
+              # With zgc it hopefully gives something back after restart:
+              # memory: 400Mi
+          imagePullPolicy: IfNotPresent
