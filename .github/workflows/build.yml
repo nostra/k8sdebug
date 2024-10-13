@@ -6,7 +6,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-22.04
-
+    defaults:
+      run:
+        working-directory: ./spring-app
     steps:
     - uses: actions/checkout@v4
 
