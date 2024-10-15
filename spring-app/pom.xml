@@ -28,6 +28,7 @@
 	</scm>
 	<properties>
 		<java.version>23</java.version>
+		<kubernetes-maven-plugin.version>1.17.0</kubernetes-maven-plugin.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -56,6 +57,28 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.jkube</groupId>
+				<artifactId>kubernetes-maven-plugin</artifactId>
+				<version>${kubernetes-maven-plugin.version}</version>
+				<configuration>
+					<remoteDevelopment>
+						<localServices>
+							<localService>
+								<serviceName>atlas-app</serviceName>
+								<port>8080</port>
+							</localService>
+						</localServices>
+						<remoteServices>
+							<remoteService>
+								<hostname>grafana.monitoring</hostname>
+								<port>3000</port>
+								<localPort>13000</localPort>
+							</remoteService>
+						</remoteServices>
+					</remoteDevelopment>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
