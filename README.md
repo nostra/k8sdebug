@@ -30,6 +30,12 @@ cd spring-app
 docker build -t jk8sdebug:manual .
 ```
 
+# Alternative II docker build: jib
+
+See, and adapt:
+https://github.com/operator-framework/java-operator-sdk/blob/main/sample-operators/mysql-schema/pom.xml#L95
+
+
 # Deploy in demo namespace:
 ```
 cd k8s
