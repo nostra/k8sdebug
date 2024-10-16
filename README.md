@@ -35,6 +35,7 @@ docker build -t jk8sdebug:manual .
 See, and adapt:
 https://github.com/operator-framework/java-operator-sdk/blob/main/sample-operators/mysql-schema/pom.xml#L95
 
+Check: https://dev.to/chainguard/debugging-distroless-images-with-kubectl-and-cdebug-1dm0
 
 # Deploy in demo namespace:
 ```
