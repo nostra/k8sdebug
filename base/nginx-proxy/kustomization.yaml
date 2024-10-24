@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: monitoring
+resources:
+  - nginx-proxy.yaml
+  - nginx-proxy-service.yaml
+configMapGenerator:
+  - name: nginx-proxy
+    files:
+      - nginx-proxy.conf=nginx-proxy.conf
+      - index.html=index.html
+      - _htpasswd=_htpasswd
+#    options:
+#      disableNameSuffixHash: true

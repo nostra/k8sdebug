@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8sdebug
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: k8sdebug
+  template:
+    spec:
+      containers:
+        - name: k8sdebug
+          image: ghcr.io/k8sdebug/k8sdebug:0.0.18 # {"$imagepolicy": "apps:k8sdebug"}
+          env:
+            - {}
+            # NOTE: This is a very small jvm, which won't be suitable for production
+            - name: JAVA_TOOL_OPTIONS
+              value: "-XX:+UseZGC -Xss256K -Xmx64M -XX:ReservedCodeCacheSize=64M -XX:MaxMetaspaceSize=64M -XX:MaxDirectMemorySize=5M"
+      terminationGracePeriodSeconds: 2

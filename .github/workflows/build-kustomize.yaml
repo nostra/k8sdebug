@@ -1,0 +1,30 @@
+name: 'Kustomize GitHub Actions'
+on:
+  push:
+    paths:
+      - 'clusters/**'
+      - 'flux/**'
+
+jobs:
+  kustomize:
+    name: 'Kustomize'
+    if: "!startsWith(github.event.head_commit.message, '[flux]')"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v4
+
+      - name: 'Kustomize build'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # TODO In the future, consider creating our own build image with all the necessary artifacts
+          if [ ! -f ./kustomize ] ; then
+            curl --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
+          fi
+
+          for a in "clusters/kind" "flux/kind" "flux/system" ; do
+            echo "Build $a..."
+            ./kustomize build $a > /dev/null 
+          done

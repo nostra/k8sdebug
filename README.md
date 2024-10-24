@@ -40,8 +40,8 @@ Check: https://dev.to/chainguard/debugging-distroless-images-with-kubectl-and-cd
 # Deploy in demo namespace:
 ```
 cd k8s
-kind load docker-image jk8sdebug:manual --name atlas
-kind load docker-image jk8sdebug:0.0.1-SNAPSHOT --name atlas
+kind load docker-image jk8sdebug:manual --name k8sdebug
+kind load docker-image jk8sdebug:0.0.1-SNAPSHOT --name k8sdebug
 kubectl create -k .
 ```
 
@@ -60,30 +60,30 @@ You need to suspend flux, so the configuration does not get reset. You
 also need to configure Kubernetes so you are in the correct namespace.
 
 Steps:
-- Check output from currently running cluster: http://atlas-app.local.gd:31090/
+- Check output from currently running cluster: http://k8sdebug-app.local.gd:31090/
 - Ensure you have a connection to k8s, and that you have the apps namespace
-  active. You should see the atlas pod:
+  active. You should see the k8sdebug pod:
 ```
 kubectl config set-context --current --namespace=apps
 kubectl get pods
 ```
 - Suspend Flux, so it does not reset config:
 ```
-flux suspend kustomization atlas
+flux suspend kustomization k8sdebug
 ```
-- Start atlas locally, change output
+- Start k8sdebug locally, change output
 - pom.xml has configuration for hijack. Do:
 ```
 ./mvnw k8s:remote-dev
 ```
-- Check output again: http://atlas-app.local.gd:31090/
+- Check output again: http://k8sdebug-app.local.gd:31090/
 
 With the steps above, you should observe output from your locally
 running application.
 
 When done, stop maven job with CTRL+C, and remember to resume Flux:
 ```
-flux resume kustomization atlas
+flux resume kustomization k8sdebug
 ```
 
 # What to do with no restart

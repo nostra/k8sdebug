@@ -1,0 +1,33 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - allow-all-network-policy.yaml
+  - monitoring-ns.yaml
+  - operator
+  - prometheus
+  - alertmanager
+  - kube-state-metrics
+  - kubernetes-controlplane
+  - node-exporter
+  - grafana
+  - fluxcd
+# Patches not needed as we set up local nginx for port-forwarding
+#patches:
+#  - patch: |-
+#      apiVersion: monitoring.coreos.com/v1
+#      kind: Prometheus
+#      metadata:
+#        name: k8s
+#        namespace: monitoring
+#      spec:
+#        # Setting up localhost as externalUrl to make it more easily accessible after port-forward
+#        externalUrl: http://localhost:9090
+#  - patch: |-
+#      apiVersion: monitoring.coreos.com/v1
+#      kind: Alertmanager
+#      metadata:
+#        name: main
+#        namespace: monitoring
+#      spec:
+#        # Setting up localhost as externalUrl to make it more easily accessible after port-forward
+#        externalUrl: http://localhost:9093

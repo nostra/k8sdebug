@@ -66,7 +66,7 @@
 					<remoteDevelopment>
 						<localServices>
 							<localService>
-								<serviceName>atlas-app</serviceName>
+								<serviceName>k8sdebug-app</serviceName>
 								<port>8080</port>
 							</localService>
 						</localServices>

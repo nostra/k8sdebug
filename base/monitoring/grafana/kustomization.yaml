@@ -1,0 +1,69 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: monitoring
+resources:
+- grafana-config.yaml
+- grafana-dashboardDatasources.yaml
+- grafana-dashboardSources.yaml
+- grafana-deployment.yaml
+- grafana-networkPolicy.yaml
+- grafana-prometheusRule.yaml
+- grafana-service.yaml
+- grafana-serviceAccount.yaml
+- grafana-serviceMonitor.yaml
+patches:
+  - target:
+      kind: Deployment
+      name: grafana
+    path: grafana-environment.yaml
+configMapGenerator:
+  - name: grafana-dashboard-alertmanager-overview
+    files:
+      - grafana-dashboard-definitions/alertmanager-overview/alertmanager-overview.json
+  - name: grafana-dashboard-node-exporter
+    files:
+      - grafana-dashboard-definitions/node-exporter/nodes.json
+      - grafana-dashboard-definitions/node-exporter/node-cluster-rsrc-use.json
+      - grafana-dashboard-definitions/node-exporter/node-rsrc-use.json
+  - name: grafana-dashboard-prometheus
+    files:
+      - grafana-dashboard-definitions/prometheus/prometheus-remote-write.json
+      - grafana-dashboard-definitions/prometheus/prometheus.json
+  - name: grafana-dashboard-grafana
+    files:
+      - grafana-dashboard-definitions/grafana-overview/grafana-overview.json
+  - name: grafana-dashboard-nginx-controller
+    files:
+      - grafana-dashboard-definitions/nginx-controller/nginx-controller-overview.json
+  - name: grafana-dashboard-flux
+    files:
+      - grafana-dashboard-definitions/flux/flux2_rev1.json
+      # flux2_rev1 is better than cluster.json
+      # - grafana-dashboard-definitions/flux/cluster.json
+      - grafana-dashboard-definitions/flux/control-plane.json
+  - name: grafana-dashboard-coredns
+    files:
+      # Might be possible to salvage - grafana-dashboard-definitions/coredns/coredns_rev1_12028.json
+      # Did not work - grafana-dashboard-definitions/coredns/coredns-with-nodelocaldns_rev1-11759.json
+      ##- grafana-dashboard-definitions/coredns/coredns_rev1-12539.json
+      # Did not work on kind - grafana-dashboard-definitions/coredns/coredns_rev1_16358.json
+      - grafana-dashboard-definitions/coredns/k8s-coredns_rev1-12382.json
+      ##- grafana-dashboard-definitions/coredns/k8s-coredns_rev1-12382.json
+      ##- grafana-dashboard-definitions/coredns/kubernetes-system-coredns_rev1-15762.json
+  - name: grafana-dashboard-kubernetes
+    files:
+      - grafana-dashboard-definitions/kubernetes/cluster-total.json
+      - grafana-dashboard-definitions/kubernetes/k8s-resources-namespace.json
+      - grafana-dashboard-definitions/kubernetes/k8s-resources-workload.json
+      - grafana-dashboard-definitions/kubernetes/namespace-by-pod.json
+      - grafana-dashboard-definitions/kubernetes/pod-total.json
+      - grafana-dashboard-definitions/kubernetes/controller-manager.json
+      - grafana-dashboard-definitions/kubernetes/k8s-resources-node.json
+      - grafana-dashboard-definitions/kubernetes/k8s-resources-workloads-namespace.json
+      - grafana-dashboard-definitions/kubernetes/namespace-by-workload.json
+      - grafana-dashboard-definitions/kubernetes/scheduler.json
+      - grafana-dashboard-definitions/kubernetes/k8s-resources-cluster.json
+      - grafana-dashboard-definitions/kubernetes/k8s-resources-pod.json
+      - grafana-dashboard-definitions/kubernetes/kubelet.json
+      - grafana-dashboard-definitions/kubernetes/persistentvolumesusage.json
+      - grafana-dashboard-definitions/kubernetes/workload-total.json

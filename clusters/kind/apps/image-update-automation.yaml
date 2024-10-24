@@ -1,0 +1,24 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageUpdateAutomation
+metadata:
+  name: flux-cluster
+spec:
+  interval: 1m0s
+  sourceRef:
+    kind: GitRepository
+    name: k8sdebug
+    namespace: flux-system
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      author:
+        email: nostra@users.noreply.github.com
+        name: fluxcdbot
+      messageTemplate: '[flux] {{range .Updated.Images}}{{println .}}{{end}}'
+    push:
+      branch: main
+  update:
+    path: ./clusters/kind/apps
+    strategy: Setters

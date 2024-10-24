@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+spec:
+  template:
+    spec:
+      containers:
+        - name: grafana
+          volumeMounts:
+            - {}
+            - mountPath: /var/lib/grafana
+              name: grafana-storage
+              readOnly: false
+            - mountPath: /etc/grafana/provisioning/datasources
+              name: grafana-datasources
+              readOnly: false
+            - mountPath: /etc/grafana/provisioning/dashboards
+              name: grafana-dashboards
+              readOnly: false
+            - mountPath: /tmp
+              name: tmp-plugins
+              readOnly: false
+            - mountPath: /grafana-dashboard-definitions/meta/alertmanager-overview
+              name: grafana-dashboard-alertmanager-overview
+            - mountPath: /grafana-dashboard-definitions/flux/flux
+              name: grafana-dashboard-flux
+              readOnly: false
+            - mountPath: /grafana-dashboard-definitions/coredns/coredns
+              name: grafana-dashboard-coredns
+              readOnly: false
+            - mountPath: /grafana-dashboard-definitions/meta/grafana
+              name: grafana-dashboard-grafana
+              readOnly: false
+            - mountPath: /grafana-dashboard-definitions/0/kubernetes
+              name: grafana-dashboard-kubernetes
+              readOnly: false
+            - mountPath: /grafana-dashboard-definitions/0/nginx-controller
+              name: grafana-dashboard-nginx-controller
+              readOnly: false
+            - mountPath: /grafana-dashboard-definitions/0/node-exporter
+              name: grafana-dashboard-node-exporter
+              readOnly: false
+            - mountPath: /grafana-dashboard-definitions/meta/prometheus
+              name: grafana-dashboard-prometheus
+              readOnly: false
+            - mountPath: /grafana-dashboard-definitions/flux/flux
+              name: grafana-dashboard-flux
+              readOnly: false
+            - mountPath: /etc/grafana
+              name: grafana-config
+              readOnly: false
+      volumes:
+        - {}
+        - emptyDir: {}
+          name: grafana-storage
+        - name: grafana-datasources
+          secret:
+            secretName: grafana-datasources
+        - configMap:
+            name: grafana-dashboards
+          name: grafana-dashboards
+        - emptyDir:
+            medium: Memory
+          name: tmp-plugins
+        - configMap:
+            name: grafana-dashboard-alertmanager-overview
+          name: grafana-dashboard-alertmanager-overview
+        - configMap:
+            name: grafana-dashboard-grafana
+          name: grafana-dashboard-grafana
+        - configMap:
+            name: grafana-dashboard-kubernetes
+          name: grafana-dashboard-kubernetes
+        - configMap:
+            name: grafana-dashboard-flux
+          name: grafana-dashboard-flux
+        - configMap:
+            name: grafana-dashboard-coredns
+          name: grafana-dashboard-coredns
+        - configMap:
+            name: grafana-dashboard-nginx-controller
+          name: grafana-dashboard-nginx-controller
+        - configMap:
+            name: grafana-dashboard-node-exporter
+          name: grafana-dashboard-node-exporter
+        - configMap:
+            name: grafana-dashboard-prometheus
+          name: grafana-dashboard-prometheus
+        - configMap:
+            name: grafana-dashboard-flux
+          name: grafana-dashboard-flux
+        - name: grafana-config
+          secret:
+            secretName: grafana-config

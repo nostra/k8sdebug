@@ -1,0 +1,33 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    app: prometheus-operator
+    release: prometheus
+  name: alertmanager-flux
+  namespace: monitoring
+spec:
+  groups:
+    - name: alerts.flux
+      rules:
+        - alert: FluxMissing
+          annotations:
+            message: Flux pod is missing for the last 5 minutes. Deployments may not work
+          for: 5m
+          expr: absent(up{job="flux-system/flux-system"})
+          labels:
+            severity: warning
+        - alert: FluxReconciliationStopped
+          annotations:
+            description: Reconciliation stopped for kustomization `{{ $labels.name }}`. Applications from these will not be updated.
+          for: 2m
+          expr: gotk_suspend_status{exported_namespace=~"flux-system",kind=~"Kustomization|HelmRelease"} > 0
+          labels:
+            severity: warning
+        - alert: FluxReconciliationStoppedError
+          annotations:
+            description: Reconciliation failed for  kustomization `{{ $labels.name }}`. Flux will not sync it.
+          for: 10m
+          expr: gotk_reconcile_condition{exported_namespace=~"flux-system",type="Ready",status="False",kind=~"Kustomization|HelmRelease"} > 0
+          labels:
+            severity: warning

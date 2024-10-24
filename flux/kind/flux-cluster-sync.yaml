@@ -1,0 +1,22 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: flux-cluster
+  namespace: flux-system
+spec:
+  # Example of how to create dependencies
+  dependsOn:
+    - name: flux-system
+      namespace: flux-system
+#  decryption:
+#    provider: sops
+#    secretRef:
+#      name: sops-gpg
+  interval: 10m0s
+  path: ./flux/kind/
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: k8sdebug
+
+

@@ -1,0 +1,18 @@
+# This allows communication from all to all
+#
+# TODO This is a hack not to impede traffic to monitoring ns, do not use in production.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-all
+  namespace: monitoring
+spec:
+  podSelector: {}
+  ingress:
+  - {}
+  egress:
+  - {}
+  policyTypes:
+  - Ingress
+  - Egress
+---

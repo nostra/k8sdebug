@@ -1,0 +1,57 @@
+apiVersion: v1
+data:
+  dashboards.yaml: |-
+    {
+      "apiVersion": 1,
+      "providers": [
+        {
+          "folder": "Kubernetes",
+          "folderUid": "",
+          "name": "0",
+          "options": {
+            "path": "/grafana-dashboard-definitions/0"
+          },
+          "orgId": 1,
+          "type": "file"
+        },
+        {
+          "folder": "Flux",
+          "folderUid": "",
+          "name": "flux",
+          "options": {
+            "path": "/grafana-dashboard-definitions/flux"
+          },
+          "orgId": 1,
+          "type": "file"
+        },
+        {
+          "folder": "Kube-DNS (coredns)",
+          "folderUid": "",
+          "name": "kubedns",
+          "options": {
+            "path": "/grafana-dashboard-definitions/coredns"
+          },
+          "orgId": 1,
+          "type": "file"
+        },
+        {
+          "folder": "Meta-monitoring",
+          "folderUid": "",
+          "name": "meta",
+          "options": {
+            "path": "/grafana-dashboard-definitions/meta"
+          },
+          "orgId": 1,
+          "type": "file"
+        }
+      ]
+    }
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/component: grafana
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/part-of: kube-prometheus
+    app.kubernetes.io/version: 10.2.3
+  name: grafana-dashboards
+  namespace: monitoring

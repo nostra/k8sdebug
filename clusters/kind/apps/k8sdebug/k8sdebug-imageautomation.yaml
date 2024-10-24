@@ -1,0 +1,21 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: k8sdebug
+spec:
+  image: ghcr.io/k8sdebug/k8sdebug
+  interval: 1m
+  provider: generic
+  secretRef:
+    name: gh-packages-auth
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: k8sdebug
+spec:
+  imageRepositoryRef:
+    name: k8sdebug
+  policy:
+    semver:
+      range: '>=0.0.1'
