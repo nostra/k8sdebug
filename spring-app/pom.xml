@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>io.github.nostra</groupId>
-	<artifactId>jk8sdebug</artifactId>
+	<artifactId>k8sdebug</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>jk8sdebug</name>
+	<name>k8sdebug</name>
 	<description>Java Kubernetes Debugging </description>
 	<url/>
 	<licenses>
