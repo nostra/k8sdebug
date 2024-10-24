@@ -166,3 +166,8 @@ jcmd 725 JFR.dump name=1 filename=$PWD/filename1.jfr
 
 ## Java Mission Control
 
+# k6
+
+https://grafana.com/docs/k6/latest/set-up/install-k6/
+
+brew install k6
