@@ -9,4 +9,4 @@ spec:
     branch: main
   secretRef:
     name: flux-cluster
-  url: ssh://git@github.com/k8sdebug/k8sdebug
+  url: ssh://git@github.com/nostra/k8sdebug
