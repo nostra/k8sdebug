@@ -27,7 +27,7 @@ https://docs.spring.io/spring-boot/reference/packaging/container-images/dockerfi
 cd spring-app
 
 ./mvnw package 
-docker build -t jk8sdebug:manual .
+docker build -t k8sdebug:manual .
 ```
 
 # Alternative II docker build: jib
@@ -39,8 +39,8 @@ Check: https://dev.to/chainguard/debugging-distroless-images-with-kubectl-and-cd
 
 # Deploy in demo namespace:
 ```
-kind load docker-image jk8sdebug:manual --name k8sdebug
-kind load docker-image jk8sdebug:0.0.1-SNAPSHOT --name k8sdebug
+kind load docker-image k8sdebug:manual --name k8sdebug
+kind load docker-image k8sdebug:0.0.1-SNAPSHOT --name k8sdebug
 ```
 
 # How to attach with debugger
@@ -93,7 +93,7 @@ What do you do?
 
 ## Debug with jcmd:
 ```
-kubectl exec -it jk8sdebug-$HASH -- bash
+kubectl exec -it k8sdebug-$HASH -- bash
 jcmd
 jcmd 1
 ```
@@ -113,8 +113,8 @@ docker cp tmp-del:/usr/lib/jvm/jdk-23-bellsoft-x86_64/ jdk
 
 Then you copy into your container
 ```
-kubectl cp jdk jk8sdebug-$HASH:/tmp/jdk
-kubectl exec -it jk8sdebug-786f68c99b-jqc64 -- bash
+kubectl cp jdk k8sdebug-$HASH:/tmp/jdk
+kubectl exec -it k8sdebug-786f68c99b-jqc64 -- bash
 ```
 Inside the container set the path:
 ```
@@ -141,8 +141,8 @@ curl -L -o /tmp/jattach https://github.com/jattach/jattach/releases/download/$VE
 ```
 
 ```
-kubectl cp /tmp/jattach jk8sdebug-786f68c99b-jqc64:/tmp/jattach
-kubectl exec -it jk8sdebug-786f68c99b-jqc64 -- bash
+kubectl cp /tmp/jattach k8sdebug-786f68c99b-jqc64:/tmp/jattach
+kubectl exec -it k8sdebug-786f68c99b-jqc64 -- bash
 ```
 
 ```

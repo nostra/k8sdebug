@@ -1,2 +1,2 @@
-spring.application.name: jk8sdebug
+spring.application.name: k8sdebug
 management,endpoints,web,exposure,include: [ "prometheus" ]
