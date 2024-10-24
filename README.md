@@ -14,7 +14,7 @@ Se minnebruk
 ## Build / deploy
 
 Build:
-```
+```shell
 cd spring-app
 ./mvnw package spring-boot:build-image
 ```
@@ -39,10 +39,8 @@ Check: https://dev.to/chainguard/debugging-distroless-images-with-kubectl-and-cd
 
 # Deploy in demo namespace:
 ```
-cd k8s
 kind load docker-image jk8sdebug:manual --name k8sdebug
 kind load docker-image jk8sdebug:0.0.1-SNAPSHOT --name k8sdebug
-kubectl create -k .
 ```
 
 # How to attach with debugger

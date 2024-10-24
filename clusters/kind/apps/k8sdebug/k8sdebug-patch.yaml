@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: k8sdebug
-          image: ghcr.io/k8sdebug/k8sdebug:0.0.18 # {"$imagepolicy": "apps:k8sdebug"}
+          image: k8sdebug:0.0.1-SNAPSHOT # {"$imagepolicy": "apps:k8sdebug"}
           env:
             - {}
             # NOTE: This is a very small jvm, which won't be suitable for production
