@@ -166,6 +166,10 @@ jcmd 725 JFR.dump name=1 filename=$PWD/filename1.jfr
 
 ## Java Mission Control
 
+# Java debug with IntelliJ
+
+-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
+
 # k6
 
 https://grafana.com/docs/k6/latest/set-up/install-k6/
