@@ -1,0 +1,7 @@
+site_name: Kubernetes java debugging
+
+nav:
+  - Home: index.md
+  - Agenda: agenda.md
+  - Kubernetes setup: kind-setup.md
+theme: readthedocs

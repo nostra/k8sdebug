@@ -1,4 +1,4 @@
-# k8sdebug
+# Kind setup to get Kubernetes
 
 For installation of base tools and other setup details, see:
 - https://nostra.github.io/neon/#/1/1
@@ -32,7 +32,7 @@ https://github.com/nostra/k8sdebug/settings/keys
 cat $HOME/.ssh/k8sdebug.pub | pbcopy
 ```
 
-# Bootstrapping Flux
+## Bootstrapping Flux
 
 Bootstrapping flux:
 ```shell
@@ -47,7 +47,7 @@ Create the local cluster:
 kubectl create -k flux/kind/
 ```
 
-## Create secret in the flux system
+### Create secret in the flux system
 The secret gets created so you can pull (and later write) to the git repository:
 ```shell
 flux create secret git flux-cluster \
@@ -56,7 +56,7 @@ flux create secret git flux-cluster \
 --export | kubectl create -f -
 ```
 
-## Create a pull token to fetch images from github packages
+### Create a pull token to fetch images from github packages
 
 First just check that you have the namespace "apps":
 
@@ -96,7 +96,7 @@ rm k8sdebug-pull-secret.yaml
 (Take a moment ot look at the yaml file before applying and deleting it, in 
 order to verify contents.)
 
-# Optional: Enable mcalert 
+## Optional: Enable mcalert 
 
 In order to get a nifty display of cluster status on the menubar, install
 https://github.com/nostra/mcalert The github entry page will explain how you
@@ -115,7 +115,7 @@ mcalert.prometheus.endpoints.local-prometheus-auth.header[0].name=Authorization
 mcalert.prometheus.endpoints.local-prometheus-auth.header[0].content=Basic bmVvbjpzZXNhbQ==
 ```
 
-# Commands / cheat sheet
+## Commands / cheat sheet
 
 Current alerts: 
 
@@ -128,7 +128,7 @@ Current alerts:
 | `flux suspend kustomization -n flux-system flux-cluster` | Stop reconcillation. Start it again with "resume"                          |
 | `kubectl config set-context --current --namespace=apps`  | Set active namespace to apps                                               |
 
-## If trouble with nginx-proxy and prometheus
+### If trouble with nginx-proxy and prometheus
 
 ```shell
 kubectl port-forward -n monitoring svc/prometheus-k8s 9090:9090
