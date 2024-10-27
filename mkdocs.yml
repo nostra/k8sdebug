@@ -1,7 +1,13 @@
 site_name: Kubernetes java debugging
 
 nav:
-  - Home: index.md
   - Agenda: agenda.md
   - Kubernetes setup: kind-setup.md
+  - Java application: java-application.md
+  - Debugging:
+      - Remote debug: remote-debug.md
+      - JKube: jkube.md
+  - About mkdocs:
+      - About: index.md
+
 theme: readthedocs

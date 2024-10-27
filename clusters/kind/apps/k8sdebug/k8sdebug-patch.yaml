@@ -9,12 +9,18 @@ spec:
       app.kubernetes.io/name: k8sdebug
   template:
     spec:
+      # This will make attached debug process share the PID address space
+      shareProcessNamespace: true
       containers:
         - name: k8sdebug
           image: k8sdebug:0.0.1-SNAPSHOT # {"$imagepolicy": "apps:k8sdebug"}
           env:
             - {}
             # NOTE: This is a very small jvm, which won't be suitable for production
-            - name: JAVA_TOOL_OPTIONS
+            - name: MEMORY_SETTINGS
               value: "-XX:+UseZGC -Xss256K -Xmx64M -XX:ReservedCodeCacheSize=64M -XX:MaxMetaspaceSize=64M -XX:MaxDirectMemorySize=5M"
+            - name: REMOTE_DEBUG
+              value: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
+            - name: JAVA_TOOL_OPTIONS
+              value: "${MEMORY_SETTINGS} ${REMOTE_DEBUG}"
       terminationGracePeriodSeconds: 2
