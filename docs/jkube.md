@@ -1,12 +1,7 @@
 # JKube
 
-```
-mvn k8s:remote-dev
-```
-
 # Insert your laptop into running cluster
 
-TODO Jkube
 Eclipse JKube can hijack a service in the cluster on your
 behalf. Doc:
 https://eclipse.dev/jkube/docs/kubernetes-maven-plugin/#jkube:remote-dev
@@ -23,13 +18,15 @@ kubectl config set-context --current --namespace=apps
 kubectl get pods
 ```
 - Suspend Flux, so it does not reset config:
-```
+
+```shell
 flux suspend kustomization k8sdebug
 ```
 - Start k8sdebug locally, change output
 - pom.xml has configuration for hijack. Do:
-```
-./mvnw k8s:remote-dev
+```shell
+cd ../spring-app
+mvn k8s:remote-dev
 ```
 - Check output again: http://k8sdebug-app.local.gd:31090/
 
