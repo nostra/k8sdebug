@@ -1,6 +1,4 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - monitoring
-  - nginx-proxy
-  - k6-operator
+- k6-operator.yaml
