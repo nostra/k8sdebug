@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/name: k8sdebug
+  name: k8sdebug
+spec:
+  endpoints:
+    - interval: 30s
+      port: http-8080
+      scheme: http
+      path: /actuator/prometheus
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: k8sdebug
