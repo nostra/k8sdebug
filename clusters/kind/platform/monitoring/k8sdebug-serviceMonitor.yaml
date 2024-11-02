@@ -4,6 +4,7 @@ metadata:
   labels:
     app.kubernetes.io/name: k8sdebug
   name: k8sdebug
+  namespace: monitoring
 spec:
   endpoints:
     - interval: 30s

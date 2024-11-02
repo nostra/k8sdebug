@@ -5,4 +5,3 @@ resources:
   - k8sdebug-sa.yaml
   - k8sdebug-deployment.yaml
   - k8sdebug-svc.yaml
-  - k8sdebug-serviceMonitor.yaml
