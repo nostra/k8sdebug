@@ -6,3 +6,8 @@
 ```shell
 kubectl create -k ../clusters/kind/apps/k6test/
 ```
+
+```shell
+kubectl delete -k ../clusters/kind/apps/k6test/
+```
+

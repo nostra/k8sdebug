@@ -5,5 +5,19 @@ all: build
 clean:
 	rm -rf site
 
-build:
+site:
 	mkdocs build
+
+build: site
+	echo \
+	"html {" \
+	"  zoom: 150%;" \
+	"  -moz-transform: scale(1.5);" \
+	"  -moz-transform-origin: 0 0;" \
+	"}" >> site/css/theme_extra.css
+
+
+
+
+
+
