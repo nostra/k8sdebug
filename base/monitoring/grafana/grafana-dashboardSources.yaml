@@ -25,11 +25,11 @@ data:
           "type": "file"
         },
         {
-          "folder": "Kube-DNS (coredns)",
+          "folder": "JVM",
           "folderUid": "",
-          "name": "kubedns",
+          "name": "jvm",
           "options": {
-            "path": "/grafana-dashboard-definitions/coredns"
+            "path": "/grafana-dashboard-definitions/jvm"
           },
           "orgId": 1,
           "type": "file"
