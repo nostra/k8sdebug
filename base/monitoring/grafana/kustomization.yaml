@@ -17,6 +17,14 @@ patches:
       name: grafana
     path: grafana-environment.yaml
 configMapGenerator:
+  - name: grafana-dashboard-jvm
+    files:
+      - grafana-dashboard-definitions/jvm/jvm-micrometer_rev1_num2.json # https://grafana.com/grafana/dashboards/11955-jvm-micrometer/
+      - grafana-dashboard-definitions/jvm/jvm-actuator_rev1.json
+      - grafana-dashboard-definitions/jvm/jvm-micrometer-in-k8s_rev1.json # https://grafana.com/grafana/dashboards/13788-jvm-micrometer-in-k8s/
+      #- grafana-dashboard-definitions/jvm/hikaricp-connection-pools_rev1-17313.json # https://grafana.com/grafana/dashboards/17313-hikaricp-connection-pools/
+      #- grafana-dashboard-definitions/jvm/camel-16354.json # https://grafana.com/grafana/dashboards/16354-data-integration-check/
+      - grafana-dashboard-definitions/jvm/17360_rev1.json # https://grafana.com/grafana/dashboards/17360-spring-http-example/
   - name: grafana-dashboard-alertmanager-overview
     files:
       - grafana-dashboard-definitions/alertmanager-overview/alertmanager-overview.json
@@ -27,7 +35,7 @@ configMapGenerator:
       - grafana-dashboard-definitions/node-exporter/node-rsrc-use.json
   - name: grafana-dashboard-prometheus
     files:
-      - grafana-dashboard-definitions/prometheus/prometheus-remote-write.json
+      # N/A - grafana-dashboard-definitions/prometheus/prometheus-remote-write.json
       - grafana-dashboard-definitions/prometheus/prometheus.json
   - name: grafana-dashboard-grafana
     files:
@@ -41,15 +49,6 @@ configMapGenerator:
       # flux2_rev1 is better than cluster.json
       # - grafana-dashboard-definitions/flux/cluster.json
       - grafana-dashboard-definitions/flux/control-plane.json
-  - name: grafana-dashboard-coredns
-    files:
-      # Might be possible to salvage - grafana-dashboard-definitions/coredns/coredns_rev1_12028.json
-      # Did not work - grafana-dashboard-definitions/coredns/coredns-with-nodelocaldns_rev1-11759.json
-      ##- grafana-dashboard-definitions/coredns/coredns_rev1-12539.json
-      # Did not work on kind - grafana-dashboard-definitions/coredns/coredns_rev1_16358.json
-      - grafana-dashboard-definitions/coredns/k8s-coredns_rev1-12382.json
-      ##- grafana-dashboard-definitions/coredns/k8s-coredns_rev1-12382.json
-      ##- grafana-dashboard-definitions/coredns/kubernetes-system-coredns_rev1-15762.json
   - name: grafana-dashboard-kubernetes
     files:
       - grafana-dashboard-definitions/kubernetes/cluster-total.json
