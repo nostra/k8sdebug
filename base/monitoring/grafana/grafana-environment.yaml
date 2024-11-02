@@ -26,8 +26,8 @@ spec:
             - mountPath: /grafana-dashboard-definitions/flux/flux
               name: grafana-dashboard-flux
               readOnly: false
-            - mountPath: /grafana-dashboard-definitions/coredns/coredns
-              name: grafana-dashboard-coredns
+            - mountPath: /grafana-dashboard-definitions/jvm/jvm
+              name: grafana-dashboard-jvm
               readOnly: false
             - mountPath: /grafana-dashboard-definitions/meta/grafana
               name: grafana-dashboard-grafana
@@ -76,8 +76,8 @@ spec:
             name: grafana-dashboard-flux
           name: grafana-dashboard-flux
         - configMap:
-            name: grafana-dashboard-coredns
-          name: grafana-dashboard-coredns
+            name: grafana-dashboard-jvm
+          name: grafana-dashboard-jvm
         - configMap:
             name: grafana-dashboard-nginx-controller
           name: grafana-dashboard-nginx-controller
