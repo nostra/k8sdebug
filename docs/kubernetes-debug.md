@@ -1,6 +1,8 @@
 # Attach Kubernetes debugger
 
 
+kubectl debug --fork will copy the entire Pod spec
+
 https://dev.to/chainguard/debugging-distroless-images-with-kubectl-and-cdebug-1dm0
 
 Dockerfile:
