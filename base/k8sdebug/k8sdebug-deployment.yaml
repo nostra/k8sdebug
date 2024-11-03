@@ -12,6 +12,7 @@ spec:
       labels:
         app.kubernetes.io/name: k8sdebug
     spec:
+      # shareProcessNamespace: true
       serviceAccountName: k8sdebug-sa
       containers:
         - name: k8sdebug

@@ -100,7 +100,11 @@ jcmd 725 JFR.dump name=1 filename=$PWD/filename1.jfr
 
 # Java debug with IntelliJ
 
+Pro-tip: Remove probes in order to avoid Kubernetes restart of pod when sleeping on breakpoint.
+
 -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
+
+kubectl port-forward -n <namespace> <pod-name> 5005:5005
 
 # k6
 
