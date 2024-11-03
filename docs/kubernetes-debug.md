@@ -35,12 +35,19 @@ contains a shell for debugging. And possibly other tools: `k8sdebug-dev:0.0.1-SN
 
 # Distroless images
 
+TODO No success yet with this
+
 https://dev.to/chainguard/debugging-distroless-images-with-kubectl-and-cdebug-1dm0
 
 Dockerfile:
 
-    FROM alpine
-    USER 65532
+    FROM bellsoft/liberica-openjdk-debian:23
+    USER 1002
+
+```shell
+docker build -t debug:image .
+kind load docker-image debug:image --name k8sdebug
+```
 
 Top level doc:
 - https://iximiuz.com/en/posts/docker-debug-slim-containers/
