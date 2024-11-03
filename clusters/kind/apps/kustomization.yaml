@@ -5,3 +5,5 @@ resources:
   - apps-ns.yaml
   - k8sdebug/
   - image-update-automation.yaml
+  - prometheus-k8s-role.yaml
+  - prometheus-roleBinding.yaml
