@@ -32,35 +32,6 @@ jcmd 1
 
 # When you do not have jcmd
 
-## Alternative: Get tool from same distro
-
-Will probably work best if the same distro:
-
-```bash
-IMAGE=bellsoft/liberica-openjdk-debian:23-cds
-docker pull --platform linux/amd64 $IMAGE
-docker create  --platform linux/amd64 --name tmp-del $IMAGE
-docker cp tmp-del:/usr/lib/jvm/jdk-23-bellsoft-x86_64/ jdk
-```
-
-Then you copy into your container
-```
-kubectl cp jdk k8sdebug-$HASH:/tmp/jdk
-kubectl exec -it k8sdebug-786f68c99b-jqc64 -- bash
-```
-Inside the container set the path:
-```
-java -version
-export JAVA_HOME=/tmp/jdk
-export PATH=/tmp/jdk/bin:$PATH
-java -version
-jcmd
-```
-
-If uncertain what is inside the image:
-```
-docker run --rm -it bellsoft/liberica-openjdk-debian:23-cds bash
-```
 
 ## Alternative: Jattach
 

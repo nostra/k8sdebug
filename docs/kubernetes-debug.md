@@ -54,3 +54,57 @@ kubectl debug -it k8sdebug-$HASH --image bellsoft/liberica-openjdk-debian:23 --t
 
 Did not work:
 kubectl debug -it k8sdebug-$HASH --share-processes --image bellsoft/liberica-openjdk-debian:23 --copy-to=debug 
+
+# Jattach
+
+https://github.com/jattach/jattach/releases
+
+```shell
+curl -L -o - https://github.com/jattach/jattach/releases/download/v2.2/jattach-linux-x64.tgz|tar -xzf -
+kubectl cp jattach atlas-app-$HASH:/tmp/jattach
+```
+
+```
+kubectl exec -it atlas-app-$HASH -- bash
+/tmp/jattach 1 jcmd help
+/tmp/jattach 1 jcmd JFR.start
+```
+
+```
+/tmp/jattach 7 jcmd JFR.start
+/tmp/jattach 7 jcmd JFR.stop
+/tmp/jattach 7 jcmd JFR.dump name=1 filename=$PWD/filename1.jfr
+```
+
+## Copy tools out of image
+
+```bash
+IMAGE=bellsoft/liberica-openjdk-debian:23-cds
+docker pull --platform linux/amd64 $IMAGE
+docker create  --platform linux/amd64 --name tmp-del $IMAGE
+docker cp tmp-del:/usr/lib/jvm/jdk-23-bellsoft-x86_64/ jdk
+```
+
+Then you copy into your container
+```
+kubectl cp jdk k8sdebug-$HASH:/tmp/jdk
+kubectl exec -it k8sdebug-786f68c99b-jqc64 -- bash
+```
+Inside the container set the path:
+```
+java -version
+export JAVA_HOME=/tmp/jdk
+export PATH=/tmp/jdk/bin:$PATH
+java -version
+jcmd
+jcmd 7 JFR.start
+jcmd 7 JFR.stop
+jcmd 7 JFR.dump name=1 filename=$PWD/filename1.jfr
+```
+
+If uncertain what is inside the image:
+```
+docker run --rm -it bellsoft/liberica-openjdk-debian:23-cds bash
+```
+
+Will probably work best if the same distro.
