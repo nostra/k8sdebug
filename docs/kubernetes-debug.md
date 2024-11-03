@@ -47,11 +47,10 @@ Top level doc:
 - Adops the point of the ephemeral container attachment:
   https://iximiuz.com/en/posts/kubernetes-ephemeral-containers/
 
-Element below will only work if running image is of the same type.
+Using the same type, to easy loading:
 ```shell
-kubectl debug -it k8sdebug-8449c77884-7ww64 --image bellsoft/liberica-openjdk-debian:23 --target k8sdebug
+kubectl debug -it k8sdebug-$HASH --image bellsoft/liberica-openjdk-debian:23 --target k8sdebug
 ```
 
-Now try jcmd: It does not work.
-
-kubectl debug -it k8sdebug-8449c77884-7ww64 --share-processes --image bellsoft/liberica-openjdk-debian:23 --target k8sdebug
+Did not work:
+kubectl debug -it k8sdebug-$HASH --share-processes --image bellsoft/liberica-openjdk-debian:23 --copy-to=debug 
