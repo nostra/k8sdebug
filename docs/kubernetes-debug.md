@@ -37,6 +37,7 @@ contains a shell for debugging. And possibly other tools: `k8sdebug-dev:0.0.1-SN
 
 TODO No success yet with this
 
+The problem is this:
 https://dev.to/chainguard/debugging-distroless-images-with-kubectl-and-cdebug-1dm0
 
 Dockerfile:
