@@ -1,4 +1,5 @@
 import soakTest from './index-test.js';
+import { Trend } from 'k6/metrics';
 
 export const options = {
     vus: 2,
@@ -8,6 +9,8 @@ export const options = {
         { duration: '5m', target: 0 }, // ramp-down to 0 users
     ],
 };
+
+const customTrend = new Trend('soak_test');
 
 export default function () {
     soakTest();

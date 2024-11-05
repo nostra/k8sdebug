@@ -9,6 +9,9 @@ spec:
       name: scenario
       file: run-soak-test.js
   separate: false
+  # Removes all resources upon completion
+  #cleanup: post
+  arguments: -o experimental-prometheus-rw --env K6_PROMETHEUS_RW_SERVER_URL=http://prometheus.monitoring:9090/api/v1/write
 #  runner:
 #    image: <custom-image>
 #    metadata:
