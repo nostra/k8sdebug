@@ -10,7 +10,7 @@ TODO Examine memory usage
 
 Build:
 ```shell
-cd spring-app
+cd ../spring-app
 ./mvnw package spring-boot:build-image
 ```
 

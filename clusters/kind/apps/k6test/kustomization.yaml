@@ -8,5 +8,5 @@ configMapGenerator:
       disableNameSuffixHash: true
       immutable: true
     files:
-      - soak-index-test.js
-      - run-test.js
+      - index-test.js
+      - run-soak-test.js

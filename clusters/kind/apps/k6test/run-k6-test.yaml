@@ -7,7 +7,7 @@ spec:
   script:
     configMap:
       name: scenario
-      file: run-test.js
+      file: run-soak-test.js
   separate: false
 #  runner:
 #    image: <custom-image>
