@@ -50,7 +50,7 @@ spec:
           resources:
             requests:
               cpu: 500m
-              memory: 400Mi
+              memory: 600Mi
             limits:
-              memory: 400Mi
+              memory: 600Mi
           imagePullPolicy: IfNotPresent
