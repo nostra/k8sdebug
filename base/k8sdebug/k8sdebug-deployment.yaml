@@ -51,7 +51,6 @@ spec:
             requests:
               cpu: 500m
               memory: 400Mi
-            #limits:
-              # With zgc it hopefully gives something back after restart:
-              # memory: 400Mi
+            limits:
+              memory: 400Mi
           imagePullPolicy: IfNotPresent
