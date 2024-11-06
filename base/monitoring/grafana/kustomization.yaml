@@ -26,7 +26,6 @@ configMapGenerator:
       - grafana-dashboard-definitions/jvm/19665-k6-prometheus.json
       #- grafana-dashboard-definitions/jvm/hikaricp-connection-pools_rev1-17313.json # https://grafana.com/grafana/dashboards/17313-hikaricp-connection-pools/
       #- grafana-dashboard-definitions/jvm/camel-16354.json # https://grafana.com/grafana/dashboards/16354-data-integration-check/
-      - grafana-dashboard-definitions/jvm/17360_rev1.json # https://grafana.com/grafana/dashboards/17360-spring-http-example/
   - name: grafana-dashboard-alertmanager-overview
     files:
       - grafana-dashboard-definitions/alertmanager-overview/alertmanager-overview.json

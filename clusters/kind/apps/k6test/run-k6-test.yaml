@@ -1,7 +1,7 @@
 apiVersion: k6.io/v1alpha1
 kind: TestRun
 metadata:
-  name: run-k6-test
+  name: run-k6-test4
 spec:
   parallelism: 1
   script:

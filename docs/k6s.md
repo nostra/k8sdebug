@@ -7,7 +7,11 @@
 kubectl create -k ../clusters/kind/apps/k6test/
 ```
 
-## WIP
+## Different tests
+
+Smoke test
+
+Load test
 
 Soak test:
 https://grafana.com/docs/k6/latest/results-output/real-time/prometheus-remote-write/
