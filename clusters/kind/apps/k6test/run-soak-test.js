@@ -2,7 +2,6 @@ import soakTest from './index-test.js';
 import { Trend } from 'k6/metrics';
 
 export const options = {
-    vus: 2,
     stages: [
         { duration: '5m', target: 100 }, // traffic ramp-up from 1 to 100 users over 5 minutes.
         { duration: '30', target: 100 },
