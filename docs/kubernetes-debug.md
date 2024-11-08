@@ -72,6 +72,18 @@ curl -L -o - https://github.com/jattach/jattach/releases/download/v2.2/jattach-l
 kubectl cp jattach atlas-app-$HASH:/tmp/jattach
 ```
 
+What if you get:
+
+```
+level=error msg="exec failed: unable to start container process: exec: \"tar\": executable file not found in $PATH"
+```
+Just pipe it:
+```
+cat jattach| kc exec -i POD-$HASH -- bash -c "cat > /tmp/jattach" 
+```
+
+
+
 ```
 kubectl exec -it atlas-app-$HASH -- bash
 /tmp/jattach 1 jcmd help
