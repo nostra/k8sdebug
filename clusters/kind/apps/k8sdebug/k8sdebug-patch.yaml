@@ -23,6 +23,6 @@ spec:
               value: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
             - name: JAVA_TOOL_OPTIONS
               value: "${MEMORY_SETTINGS} ${REMOTE_DEBUG}"
-            - name: APP_ACCELERATOR
-              value: "10"
+            - name: APP_ACCELERATOR # Increase value use more memory
+              value: "1"
       terminationGracePeriodSeconds: 2
