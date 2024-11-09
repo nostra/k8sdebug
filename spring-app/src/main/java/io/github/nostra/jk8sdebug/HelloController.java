@@ -38,10 +38,7 @@ public class HelloController {
             String id = counter.get() + "-" + UUID.randomUUID().toString().substring(0, 6);
             Counter requestCounter = Counter.builder("app_requests_total")
                     .description("A metric which intentionally creates memory pressure")
-                    .tags("version", "1.0")
                     .tags("request_id", id)
-                    .tags("timestamp", String.valueOf(System.currentTimeMillis()))
-                    .tags("counter_value", String.valueOf(counter.get()))
                     .register(registry);
 
             requestCounter.increment();

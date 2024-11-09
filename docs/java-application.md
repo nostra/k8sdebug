@@ -19,7 +19,7 @@ cd ../spring-app
 https://docs.spring.io/spring-boot/reference/packaging/container-images/dockerfiles.html
 
 ```shell
-cd spring-app
+cd ../spring-app
 
 ./mvnw package 
 docker build -t k8sdebug:manual .
