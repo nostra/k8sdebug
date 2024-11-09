@@ -3,6 +3,7 @@ package io.github.nostra.jk8sdebug;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,6 +16,9 @@ public class HelloController {
     private final MeterRegistry registry;
     private Logger log = org.apache.logging.log4j.LogManager.getLogger(HelloController.class);
 
+    @Value("${app.accelerator:1}")
+    private int accelerator;
+
     public HelloController(MeterRegistry registry) {
         this.registry = registry;
     }
@@ -25,7 +29,7 @@ public class HelloController {
             log.info("Counter is [{}]", counter.get());
         }
 
-        for (int i = 0; i++ < 100; ) {
+        for (int i = 0; i++ < accelerator ; ) {
             String uniqueId = counter.get() + "-" + UUID.randomUUID().toString().substring(0, 6);
             Counter requestCounter = Counter.builder("app_requests_total")
                     .description("A metric which intentionally creates memory pressure")
