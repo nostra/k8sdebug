@@ -4,6 +4,23 @@ For installation of base tools and other setup details, see:
 - https://nostra.github.io/neon/#/1/1
 - https://nostra.github.io/gitops-fluxcd2/
 
+## Using Colima on Mac
+
+We want to increase the number of file handles:
+
+```
+colima ssh
+```
+Edit /etc/sysctl.conf and add:
+```
+sudo -i 
+cat <<EOF >> /etc/sysctl.conf
+fs.inotify.max_user_watches = 1048576
+fs.inotify.max_user_instances = 512
+EOF
+```
+Then `systctl -p`
+
 ## Base setup / setup of your local kubernetes
 
 Create cluster:
