@@ -17,9 +17,9 @@ spec:
       containers:
         - name: k8sdebug
           image: k8sdebug:0.0.1-SNAPSHOT
-          #env:
-          #  - name: JAVA_TOOL_OPTIONS
-          #    value: ""
+          env:
+            - name: JAVA_TOOL_OPTIONS
+              value: "to-be-overridden"
           ports:
             - containerPort: 8080
               name: http
