@@ -16,11 +16,16 @@ public class HelloController {
     private final MeterRegistry registry;
     private Logger log = org.apache.logging.log4j.LogManager.getLogger(HelloController.class);
 
-    @Value("${app.accelerator:1}")
     private int accelerator;
 
     public HelloController(MeterRegistry registry) {
         this.registry = registry;
+    }
+
+    @Value("${app.accelerator:1}")
+    public void setAccelerator(int accelerator) {
+        this.accelerator = accelerator;
+        log.info("Accelerator is {}", accelerator);
     }
 
     @RequestMapping("/")
@@ -30,11 +35,11 @@ public class HelloController {
         }
 
         for (int i = 0; i++ < accelerator ; ) {
-            String uniqueId = counter.get() + "-" + UUID.randomUUID().toString().substring(0, 6);
+            String id = counter.get() + "-" + UUID.randomUUID().toString().substring(0, 6);
             Counter requestCounter = Counter.builder("app_requests_total")
                     .description("A metric which intentionally creates memory pressure")
                     .tags("version", "1.0")
-                    .tags("request_id", uniqueId)
+                    .tags("request_id", id)
                     .tags("timestamp", String.valueOf(System.currentTimeMillis()))
                     .tags("counter_value", String.valueOf(counter.get()))
                     .register(registry);
