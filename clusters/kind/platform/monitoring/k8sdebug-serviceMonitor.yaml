@@ -18,8 +18,9 @@ spec:
         - sourceLabels: [ job ]
           targetLabel: application
           action: replace
-        - sourceLabels: ["app_metric_with_error"]
-          action: drop
+      metricRelabelings:
+        - action: labeldrop
+          regex: (app_metric_with_error)
   selector:
     matchLabels:
       app.kubernetes.io/name: k8sdebug
