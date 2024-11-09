@@ -22,6 +22,5 @@ spec:
             - name: REMOTE_DEBUG
               value: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
             - name: JAVA_TOOL_OPTIONS
-              value: "${REMOTE_DEBUG}"
-              # value: "${MEMORY_SETTINGS} ${REMOTE_DEBUG}"
+              value: "${MEMORY_SETTINGS} ${REMOTE_DEBUG}"
       terminationGracePeriodSeconds: 2

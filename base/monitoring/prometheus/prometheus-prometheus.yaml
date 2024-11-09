@@ -50,3 +50,5 @@ spec:
   version: 2.54.1
   # TODO Patch this in, instead of hardcoding
   enableRemoteWriteReceiver: true
+  retention: 12h
+
