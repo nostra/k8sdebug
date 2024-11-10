@@ -1,6 +1,9 @@
 # ssh into the pod
 
-    kubect exec -it k8sdebug-$HASH -- bash
+```shell
+export POD=$(kubectl get pods -o=jsonpath='{range .items..metadata}{.name}{"\n"}{end}'|grep k8sdebug)
+kubectl exec -it $POD -- bash
+```
 
 # What about distroless images?
 
