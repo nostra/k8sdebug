@@ -34,7 +34,7 @@ public class HelloController {
             log.info("Counter is [{}]", counter.get());
         }
 
-        for (int i = 0; i++ < accelerator ; ) {
+        for (int i = 0; i++ < accelerator ; ) { // ##2
             String id = counter.get() + "-" + UUID.randomUUID().toString().substring(0, 6);
             Counter requestCounter = Counter.builder("app_metric_with_error")
                     .description("A metric which intentionally creates memory pressure")

@@ -1,10 +1,11 @@
 # Agenda
 
 TODO
+ 
 - Use monitoring ns to demo kc debug on nginx
 - Streamline jcmd / jattach doc
-  - Download 
-  - Extract from image
+    - Download 
+    - Extract from image
 
 - Introduction
 - An example java application

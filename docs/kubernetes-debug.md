@@ -7,6 +7,9 @@
 - A distroless image contains only the minimal setup for the application.
 - Or the running image lacks tools to use for debugging 
 
+Check: https://dev.to/chainguard/debugging-distroless-images-with-kubectl-and-cdebug-1dm0
+
+
 ## Attach Kubernetes debugger
 
 kubectl debug --help

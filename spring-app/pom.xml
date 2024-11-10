@@ -6,30 +6,18 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.3.4</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 	<groupId>io.github.nostra</groupId>
 	<artifactId>k8sdebug</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>k8sdebug</name>
 	<description>Java Kubernetes Debugging </description>
-	<url/>
-	<licenses>
-		<license/>
-	</licenses>
-	<developers>
-		<developer/>
-	</developers>
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
 	<properties>
-		<java.version>21</java.version>
+		<java.version>23</java.version>
 		<kubernetes-maven-plugin.version>1.17.0</kubernetes-maven-plugin.version>
 	</properties>
+	<!-- ##3 -->
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

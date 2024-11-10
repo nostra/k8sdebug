@@ -1,8 +1,9 @@
 # Kind setup to get Kubernetes
 
 For installation of base tools and other setup details, see:
-- https://nostra.github.io/neon/#/1/1
-- https://nostra.github.io/gitops-fluxcd2/
+
+- [https://nostra.github.io/neon/#/1/1](https://nostra.github.io/neon/#/1/1)
+- [https://nostra.github.io/gitops-fluxcd2/](https://nostra.github.io/gitops-fluxcd2/)
 
 ## Using Colima on Mac
 
@@ -23,7 +24,7 @@ Then `systctl -p`
 
 ## Base setup / setup of your local kubernetes
 
-Create cluster:
+Create cluster: (##1)
 ```shell
 kind create cluster --config kind-api-cluster.yaml --name=k8sdebug
 ```
@@ -83,9 +84,9 @@ kubectl get ns apps
 If you don't have it, check running pods, and status of flux. (See debug section
 at the bottom of this file for details.)
 
-Ref: https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#authenticating-with-a-personal-access-token-classic
+Ref: [authenticating-with-a-personal-access-token-classic](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#authenticating-with-a-personal-access-token-classic)
 
-- open: https://github.com/settings/tokens
+- open: [https://github.com/settings/tokens](https://github.com/settings/tokens)
 - Choose "Generate new token" and classic token
 - Fill in info
 - Choose write:packages and delete:packages (for good measure)
@@ -150,4 +151,4 @@ Current alerts:
 ```shell
 kubectl port-forward -n monitoring svc/prometheus-k8s 9090:9090
 ```
-Then: http://localhost:9090/alerts
+Then: [http://localhost:9090/alerts](http://localhost:9090/alerts)

@@ -1,10 +1,11 @@
 site_name: Kubernetes java debugging
 
 nav:
-  - Agenda: agenda.md
+  - Agenda: index.md
   - Kubernetes setup: kind-setup.md
   - A java application: java-application.md
   - Soak test with k6s: k6s.md
+  - All set up: all-set-up.md
   - Debugging:
       - Remote debug: remote-debug.md
       - JKube: jkube.md
