@@ -10,5 +10,5 @@ nav:
       - Remote debug: remote-debug.md
       - JKube: jkube.md
       - Kubernetes debugging: kubernetes-debug.md
-
+  - Key points: key-points.md
 theme: readthedocs

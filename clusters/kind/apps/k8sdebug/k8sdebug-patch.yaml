@@ -18,7 +18,7 @@ spec:
             - {}
             - name: MEMORY_SETTINGS
               value: "-XX:+UseZGC -Xss256K -Xmx64M -XX:ReservedCodeCacheSize=64M -XX:MaxMetaspaceSize=64M -XX:MaxDirectMemorySize=5M"
-            - name: REMOTE_DEBUG
+            - name: REMOTE_DEBUG ##6
               value: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
             - name: JAVA_TOOL_OPTIONS
               value: "$(REMOTE_DEBUG)"
