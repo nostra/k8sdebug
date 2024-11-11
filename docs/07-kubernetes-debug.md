@@ -41,13 +41,22 @@ Find the pid of the java process and try to access the root:
 
 This does not go well.
 
-### DELETE BELOW
+TODO Will it go better with Rancher?
+
+### Attach an ephemeral container to the original
+
 Using the same image as the original container:
 
-    kubectl debug -it k8sdebug-8449c77884-t5zbs --image k8sdebug:0.0.1-SNAPSHOT --target k8sdebug
+    kubectl debug -it k8sdebug-$HASH --image k8sdebug:manual --target k8sdebug -- bash
+
+Find the pid (by looking at `/proc`) and examine the directory structure:
+
+    ls /proc/6/root/workspace/org/springframework/
+
+Jcmd does not work with this, unfortunately. 
 
 What you can consider making, is an image which is functionally identical, but that
-contains a shell for debugging. And possibly other tools: `k8sdebug-dev:0.0.1-SNAPSHOT`
+contains a shell for debugging. And possibly other tools: `k8sdebug-dev:...`
 
 # Distroless images
 
@@ -66,7 +75,8 @@ docker build -t debug:image .
 kind load docker-image debug:image --name k8sdebug
 ```
 
-Top level doc:
+Top level doc: TODO Consider removing
+
 - https://iximiuz.com/en/posts/docker-debug-slim-containers/
 - Adops the point of the ephemeral container attachment:
   https://iximiuz.com/en/posts/kubernetes-ephemeral-containers/
@@ -76,12 +86,8 @@ Using the same type, to easy loading:
 kubectl debug -it k8sdebug-$HASH --image bellsoft/liberica-openjdk-debian:23 --target k8sdebug
 ``` 
 
-The following gave me shared file space:
+Create a copy of the pods with problems, and attach to it:
 
-    kubectl debug -it k8sdebug-644c8d5d94-g6g92 --image debug:image
+    kubectl debug -it k8sdebug-$HASH --image k8sdebug:manual --share-processes --copy-to=debug -- bash
 
-
-
-Did not work:
-kubectl debug -it k8sdebug-$HASH --share-processes --image bellsoft/liberica-openjdk-debian:23 --copy-to=debug 
-
+The attached debug container does not have probes, so it won't get restarted.
