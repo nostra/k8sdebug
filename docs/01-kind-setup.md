@@ -54,6 +54,7 @@ cat $HOME/.ssh/k8sdebug.pub | pbcopy
 
 Bootstrapping flux:
 ```shell
+cd ..
 kubectl create -k flux/system
 kubectl wait pod \
 --all \
@@ -61,7 +62,8 @@ kubectl wait pod \
 ```
 
 Create the local cluster:
-```bash
+```shell
+cd ..
 kubectl create -k flux/kind/
 ```
 

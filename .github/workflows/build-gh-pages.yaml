@@ -3,7 +3,7 @@ name: Build gh-pages
 on:
   push:
     branches:
-      - DEACTIVATED-UNTIL-READY-main
+      - main
 
 jobs:
   build-and-deploy:
