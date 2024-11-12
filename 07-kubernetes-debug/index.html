@@ -9,14 +9,14 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>7. WIP Kubernetes debugging - Kubernetes java debugging</title>
+  <title>7. Kubernetes debugging - Kubernetes java debugging</title>
   <link rel="stylesheet" href="../css/theme.css" />
   <link rel="stylesheet" href="../css/theme_extra.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
   
   <script>
     // Current page data
-    var mkdocs_page_name = "7. WIP Kubernetes debugging";
+    var mkdocs_page_name = "7. Kubernetes debugging";
     var mkdocs_page_input_path = "07-kubernetes-debug.md";
     var mkdocs_page_url = null;
   </script>
@@ -71,7 +71,7 @@
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../06-jkube/">6. JKube</a>
                     </li>
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">7. WIP Kubernetes debugging</a>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">7. Kubernetes debugging</a>
     <ul class="current">
     </ul>
                     </li>
@@ -107,7 +107,7 @@
         
       
     
-    <li>7. WIP Kubernetes debugging</li>
+    <li>7. Kubernetes debugging</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -148,8 +148,6 @@ kubectl debug -it $POD --image bellsoft/liberica-openjdk-debian:23-cds
 <p>Find the pid of the java process and try to access the root:</p>
 <pre><code>ls /proc/PID/root
 </code></pre>
-<p>This does not go well.</p>
-<p>TODO Will it go better with Rancher?</p>
 <h3 id="attach-an-ephemeral-container-to-the-original">Attach an ephemeral container to the original</h3>
 <p>Using the same image as the original container:</p>
 <pre><code>kubectl debug -it k8sdebug-$HASH --image k8sdebug:manual --target k8sdebug -- bash
@@ -161,7 +159,6 @@ kubectl debug -it $POD --image bellsoft/liberica-openjdk-debian:23-cds
 <p>What you can consider making, is an image which is functionally identical, but that
 contains a shell for debugging. And possibly other tools: <code>k8sdebug-dev:...</code></p>
 <h1 id="distroless-images">Distroless images</h1>
-<p>TODO No success yet with this</p>
 <p>The problem is this:
 https://dev.to/chainguard/debugging-distroless-images-with-kubectl-and-cdebug-1dm0</p>
 <p>Dockerfile:</p>
@@ -171,12 +168,6 @@ USER 1000
 <pre><code class="language-shell">docker build -t debug:image .
 kind load docker-image debug:image --name k8sdebug
 </code></pre>
-<p>Top level doc: TODO Consider removing</p>
-<ul>
-<li>https://iximiuz.com/en/posts/docker-debug-slim-containers/</li>
-<li>Adops the point of the ephemeral container attachment:
-  https://iximiuz.com/en/posts/kubernetes-ephemeral-containers/</li>
-</ul>
 <p>Using the same type, to easy loading:</p>
 <pre><code class="language-shell">kubectl debug -it k8sdebug-$HASH --image bellsoft/liberica-openjdk-debian:23 --target k8sdebug
 </code></pre>
