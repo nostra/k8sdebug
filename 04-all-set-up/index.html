@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>4. All set up - Kubernetes java debugging</title>
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "4. All set up";
+    var mkdocs_page_input_path = "04-all-set-up.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Kubernetes java debugging</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Agenda</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../01-kind-setup/">1. Kubernetes setup</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../02-java-application/">2. A java application</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../03-k6s/">3. Soak test with k6s</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">4. All set up</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#dashboard-in-grafana">Dashboard in Grafana</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Debugging</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../05-remote-debug/">5. Remote debug</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../06-jkube/">6. JKube</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../07-kubernetes-debug/">7. WIP Kubernetes debugging</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../08-jcmd-jfr-jmc/">8. JCMD / JFR / JMC</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../key-points/">Key points</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Kubernetes java debugging</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>4. All set up</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="all-set-up">All set up</h1>
+<p>We have now prepared a Kubernetes cluster with a running java application. 
+We have added a set of tools to help us diagnose trouble. In your real life
+project, you most likely will have to add these tools  after-the-fact, i.e. 
+when you find you need to have a harder look at a problem.</p>
+<p>Our resources and setup:</p>
+<ul>
+<li>Nginx entrypoint: <a href="http://localhost:31090/">http://localhost:31090/</a></li>
+<li>Our application ##5: <a href="http://k8sdebug.local.gd:31090/">http://k8sdebug.local.gd:31090/</a></li>
+<li>Metrics endpoint for our application <a href="http://k8sdebug.local.gd:31090/actuator/prometheus">http://k8sdebug.local.gd:31090/actuator/prometheus</a></li>
+<li>Prometheus interface: <a href="http://prometheus.local.gd:31090/graph?g0.expr=sum(jvm_memory_max_bytes)&amp;g0.tab=0&amp;g0.display_mode=lines&amp;g0.show_exemplars=0&amp;g0.range_input=5m">Prometheus with memory used query</a></li>
+<li>Grafana: <a href="http://grafana.local.gd:31090/dashboards">http://grafana.local.gd:31090/dashboards</a></li>
+<li>K6 dashboard in grafana:  <a href="http://grafana.local.gd:31090/d/ccbb2351-2ae2-462f-ae0e-f2c893ad1028/k6-prometheus?orgId=1">http://grafana.local.gd:31090/d/ccbb2351-2ae2-462f-ae0e-f2c893ad1028/k6-prometheus?orgId=1</a></li>
+</ul>
+<h2 id="dashboard-in-grafana">Dashboard in Grafana</h2>
+<p>Opening 
+<a href="http://grafana.local.gd:31090/d/vJAZ9jwWk/jvm-namespace-centric?orgId=1&amp;refresh=5s">http://grafana.local.gd:31090/d/vJAZ9jwWk/jvm-namespace-centric?orgId=1&amp;refresh=5s</a>
+show you - among other things - that the <strong>heap is quite full</strong>. This is due to
+JIB magic. You can adjust some setting by environment variables, which requires you
+to understand and this specific product.</p>
+<p>Understanding the exact needs of an application, and where and how the memory
+is actually used, is taxing, and usually memory get blindly adjusted upwards
+until the application works.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../05-remote-debug/" class="btn btn-neutral float-right" title="5. Remote debug">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../03-k6s/" class="btn btn-neutral" title="3. Soak test with k6s"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../03-k6s/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../05-remote-debug/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

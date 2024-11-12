@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>7. WIP Kubernetes debugging - Kubernetes java debugging</title>
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "7. WIP Kubernetes debugging";
+    var mkdocs_page_input_path = "07-kubernetes-debug.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Kubernetes java debugging</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Agenda</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../01-kind-setup/">1. Kubernetes setup</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../02-java-application/">2. A java application</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../03-k6s/">3. Soak test with k6s</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../04-all-set-up/">4. All set up</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Debugging</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../05-remote-debug/">5. Remote debug</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../06-jkube/">6. JKube</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">7. WIP Kubernetes debugging</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../08-jcmd-jfr-jmc/">8. JCMD / JFR / JMC</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../key-points/">Key points</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Kubernetes java debugging</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Debugging &raquo;</li>
+        
+      
+    
+    <li>7. WIP Kubernetes debugging</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="ssh-into-the-pod">ssh into the pod</h1>
+<pre><code class="language-shell">export POD=$(kubectl get pods -o=jsonpath='{range .items..metadata}{.name}{&quot;\n&quot;}{end}'|grep k8sdebug)
+kubectl exec -it $POD -- bash
+</code></pre>
+<h1 id="what-about-distroless-images">What about distroless images?</h1>
+<ul>
+<li>A distroless image contains only the minimal setup for the application.</li>
+<li>Or the running image lacks tools to use for debugging </li>
+</ul>
+<p>See: <a href="https://dev.to/chainguard/debugging-distroless-images-with-kubectl-and-cdebug-1dm0">https://dev.to/chainguard/debugging-distroless-images-with-kubectl-and-cdebug-1dm0</a></p>
+<h2 id="attach-kubernetes-debugger">Attach Kubernetes debugger</h2>
+<p>kubectl debug --help</p>
+<pre><code>...
+
+# Create a copy of mypod adding a debug container and attach to it
+kubectl debug mypod -it --image=busybox --copy-to=my-debugger
+
+# Create an interactive debugging session on a node and immediately attach to it.
+# The container will run in the host namespaces and the host's filesystem will be mounted at /host
+kubectl debug node/mynode -it --image=busybox
+</code></pre>
+<h2 id="copy-the-failing-container-examining-it-with-ubuntu-image">Copy the failing container, examining it with ubuntu image:</h2>
+<pre><code class="language-shell">export POD=$(kubectl get pods -o=jsonpath='{range .items..metadata}{.name}{&quot;\n&quot;}{end}'|grep k8sdebug)
+kubectl debug -it $POD --image bellsoft/liberica-openjdk-debian:23-cds
+</code></pre>
+<pre><code>apt-get install procps
+</code></pre>
+<p>Find the pid of the java process and try to access the root:</p>
+<pre><code>ls /proc/PID/root
+</code></pre>
+<p>This does not go well.</p>
+<p>TODO Will it go better with Rancher?</p>
+<h3 id="attach-an-ephemeral-container-to-the-original">Attach an ephemeral container to the original</h3>
+<p>Using the same image as the original container:</p>
+<pre><code>kubectl debug -it k8sdebug-$HASH --image k8sdebug:manual --target k8sdebug -- bash
+</code></pre>
+<p>Find the pid (by looking at <code>/proc</code>) and examine the directory structure:</p>
+<pre><code>ls /proc/6/root/workspace/org/springframework/
+</code></pre>
+<p>Jcmd does not work with this, unfortunately. </p>
+<p>What you can consider making, is an image which is functionally identical, but that
+contains a shell for debugging. And possibly other tools: <code>k8sdebug-dev:...</code></p>
+<h1 id="distroless-images">Distroless images</h1>
+<p>TODO No success yet with this</p>
+<p>The problem is this:
+https://dev.to/chainguard/debugging-distroless-images-with-kubectl-and-cdebug-1dm0</p>
+<p>Dockerfile:</p>
+<pre><code>FROM bellsoft/liberica-openjdk-debian:23
+USER 1000
+</code></pre>
+<pre><code class="language-shell">docker build -t debug:image .
+kind load docker-image debug:image --name k8sdebug
+</code></pre>
+<p>Top level doc: TODO Consider removing</p>
+<ul>
+<li>https://iximiuz.com/en/posts/docker-debug-slim-containers/</li>
+<li>Adops the point of the ephemeral container attachment:
+  https://iximiuz.com/en/posts/kubernetes-ephemeral-containers/</li>
+</ul>
+<p>Using the same type, to easy loading:</p>
+<pre><code class="language-shell">kubectl debug -it k8sdebug-$HASH --image bellsoft/liberica-openjdk-debian:23 --target k8sdebug
+</code></pre>
+<p>Create a copy of the pods with problems, and attach to it:</p>
+<pre><code>kubectl debug -it k8sdebug-$HASH --image k8sdebug:manual --share-processes --copy-to=debug -- bash
+</code></pre>
+<p>The attached debug container does not have probes, so it won't get restarted.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../08-jcmd-jfr-jmc/" class="btn btn-neutral float-right" title="8. JCMD / JFR / JMC">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../06-jkube/" class="btn btn-neutral" title="6. JKube"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../06-jkube/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../08-jcmd-jfr-jmc/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

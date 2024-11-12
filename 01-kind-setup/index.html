@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>1. Kubernetes setup - Kubernetes java debugging</title>
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "1. Kubernetes setup";
+    var mkdocs_page_input_path = "01-kind-setup.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Kubernetes java debugging</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Agenda</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">1. Kubernetes setup</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#using-colima-on-mac">Using Colima on Mac</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#base-setup-setup-of-your-local-kubernetes">Base setup / setup of your local kubernetes</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#bootstrapping-flux">Bootstrapping Flux</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#create-secret-in-the-flux-system">Create secret in the flux system</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#create-a-pull-token-to-fetch-images-from-github-packages">Create a pull token to fetch images from github packages</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#optional-enable-mcalert">Optional: Enable mcalert</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#commands-cheat-sheet">Commands / cheat sheet</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#if-trouble-with-nginx-proxy-and-prometheus">If trouble with nginx-proxy and prometheus</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../02-java-application/">2. A java application</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../03-k6s/">3. Soak test with k6s</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../04-all-set-up/">4. All set up</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Debugging</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../05-remote-debug/">5. Remote debug</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../06-jkube/">6. JKube</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../07-kubernetes-debug/">7. WIP Kubernetes debugging</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../08-jcmd-jfr-jmc/">8. JCMD / JFR / JMC</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../key-points/">Key points</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Kubernetes java debugging</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>1. Kubernetes setup</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="kind-setup-to-get-kubernetes">Kind setup to get Kubernetes</h1>
+<p>For installation of base tools and other setup details, see:</p>
+<ul>
+<li><a href="https://nostra.github.io/neon/#/1/1">https://nostra.github.io/neon/#/1/1</a></li>
+<li><a href="https://nostra.github.io/gitops-fluxcd2/">https://nostra.github.io/gitops-fluxcd2/</a></li>
+</ul>
+<h2 id="using-colima-on-mac">Using Colima on Mac</h2>
+<p>We want to increase the number of file handles:</p>
+<pre><code>colima ssh
+</code></pre>
+<p>Edit /etc/sysctl.conf and add:</p>
+<pre><code>sudo -i 
+cat &lt;&lt;EOF &gt;&gt; /etc/sysctl.conf
+fs.inotify.max_user_watches = 1048576
+fs.inotify.max_user_instances = 512
+EOF
+</code></pre>
+<p>Then <code>systctl -p</code></p>
+<h2 id="base-setup-setup-of-your-local-kubernetes">Base setup / setup of your local kubernetes</h2>
+<p>Create cluster: (##1)</p>
+<pre><code class="language-shell">kind create cluster --config kind-api-cluster.yaml --name=k8sdebug
+</code></pre>
+<p>Test cluster:</p>
+<pre><code class="language-shell">kubectl cluster-info --context kind-k8sdebug
+</code></pre>
+<pre><code class="language-shell">kubectl wait pod \
+--all \
+--for=condition=Ready -A
+</code></pre>
+<p>Create a key that you will register as a <strong>deploy key in github</strong>:</p>
+<pre><code class="language-shell">ssh-keygen -f ~/.ssh/k8sdebug -N &quot;&quot; -C &quot;Key for k8sdebug setup. This key was generated by $USER&quot;
+</code></pre>
+<p>Copy the key and create it as a deploy key with write rights in
+https://github.com/nostra/k8sdebug/settings/keys</p>
+<pre><code>cat $HOME/.ssh/k8sdebug.pub | pbcopy
+</code></pre>
+<h2 id="bootstrapping-flux">Bootstrapping Flux</h2>
+<p>Bootstrapping flux:</p>
+<pre><code class="language-shell">cd ..
+kubectl create -k flux/system
+kubectl wait pod \
+--all \
+--for=condition=Ready -n flux-system --timeout 300s
+</code></pre>
+<p>Create the local cluster:</p>
+<pre><code class="language-shell">cd ..
+kubectl create -k flux/kind/
+</code></pre>
+<h3 id="create-secret-in-the-flux-system">Create secret in the flux system</h3>
+<p>The secret gets created so you can pull (and later write) to the git repository:</p>
+<pre><code class="language-shell">flux create secret git flux-cluster \
+--url=ssh://git@github.com/nostra/k8sdebug \
+--private-key-file=$HOME/.ssh/k8sdebug --namespace=flux-system \
+--export | kubectl create -f -
+</code></pre>
+<h3 id="create-a-pull-token-to-fetch-images-from-github-packages">Create a pull token to fetch images from github packages</h3>
+<p>First just check that you have the namespace "apps":</p>
+<pre><code class="language-shell">kubectl get ns apps
+</code></pre>
+<p>If you don't have it, check running pods, and status of flux. (See debug section
+at the bottom of this file for details.)</p>
+<p>Ref: <a href="https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#authenticating-with-a-personal-access-token-classic">authenticating-with-a-personal-access-token-classic</a></p>
+<ul>
+<li>open: <a href="https://github.com/settings/tokens">https://github.com/settings/tokens</a></li>
+<li>Choose "Generate new token" and classic token</li>
+<li>Fill in info</li>
+<li>Choose write:packages and delete:packages (for good measure)</li>
+<li>Click "Generate token"</li>
+<li>write something like</li>
+</ul>
+<pre><code>export CR_PAT=&quot;...&quot;
+export USERNAME=&quot;your github handle&quot;
+echo $CR_PAT | docker login ghcr.io -u $USERNAME --password-stdin
+docker pull ghcr.io/k8sdebug/k8sdebug-app:0.0.12
+</code></pre>
+<p>If you with this manage to pull an image, you successfully have a token in CR_PAT
+variable.</p>
+<pre><code>export CR_PAT=&quot;...&quot;
+export USERNAME=&quot;your github handle&quot;
+kubectl -n apps \
+  create secret docker-registry gh-packages-auth --docker-server=ghcr.io --docker-username=$USERNAME \
+  --docker-password=&quot;$CR_PAT&quot; --dry-run=client -o yaml &gt; k8sdebug-pull-secret.yaml
+kubectl create -f k8sdebug-pull-secret.yaml
+rm k8sdebug-pull-secret.yaml
+</code></pre>
+<p>(Take a moment ot look at the yaml file before applying and deleting it, in 
+order to verify contents.)</p>
+<h2 id="optional-enable-mcalert">Optional: Enable mcalert</h2>
+<p>In order to get a nifty display of cluster status on the menubar, install
+https://github.com/nostra/mcalert The github entry page will explain how you
+compile and install it.</p>
+<p>Create the file .mcalert.properties in your $HOME and put the following into it:</p>
+<pre><code class="language-properties">mcalert.prometheus.endpoints.local-prometheus.ignore-alerts=CPUThrottlingHigh,KubeControllerManagerDown,KubeControllerManagerDown,KubeSchedulerDown,NodeClockNotSynchronising
+mcalert.prometheus.endpoints.local-prometheus.watchdog-alerts=disabled
+mcalert.prometheus.endpoints.local-prometheus.uri=http://prometheus.local.gd:31090/api/v1/alerts
+
+mcalert.prometheus.endpoints.local-prometheus-auth.ignore-alerts=CPUThrottlingHigh,KubeControllerManagerDown,KubeControllerManagerDown,KubeSchedulerDown,NodeClockNotSynchronising
+mcalert.prometheus.endpoints.local-prometheus-auth.watchdog-alerts=disabled
+mcalert.prometheus.endpoints.local-prometheus-auth.uri=http://prometheus-auth.local.gd:31090/api/v1/alerts
+mcalert.prometheus.endpoints.local-prometheus-auth.header[0].name=Authorization
+mcalert.prometheus.endpoints.local-prometheus-auth.header[0].content=Basic bmVvbjpzZXNhbQ==
+</code></pre>
+<h2 id="commands-cheat-sheet">Commands / cheat sheet</h2>
+<p>Current alerts: </p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>kubectl get pods -A</code></td>
+<td>Get pods in all namespaces. All should be running ok</td>
+</tr>
+<tr>
+<td><code>flux get kustomization -A</code></td>
+<td>Get Kustomizations for all namespaces. They should all <em>not</em> be suspended,</td>
+</tr>
+<tr>
+<td><code>flux get sources git</code></td>
+<td>Find status of sources, i.e. the remote git repostory</td>
+</tr>
+<tr>
+<td><code>flux reconcile source git k8sdebug</code></td>
+<td>Force reconcilliation of git</td>
+</tr>
+<tr>
+<td><code>flux suspend kustomization -n flux-system flux-cluster</code></td>
+<td>Stop reconcillation. Start it again with "resume"</td>
+</tr>
+<tr>
+<td><code>kubectl config set-context --current --namespace=apps</code></td>
+<td>Set active namespace to apps</td>
+</tr>
+</tbody>
+</table>
+<h3 id="if-trouble-with-nginx-proxy-and-prometheus">If trouble with nginx-proxy and prometheus</h3>
+<pre><code class="language-shell">kubectl port-forward -n monitoring svc/prometheus-k8s 9090:9090
+</code></pre>
+<p>Then: <a href="http://localhost:9090/alerts">http://localhost:9090/alerts</a></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../02-java-application/" class="btn btn-neutral float-right" title="2. A java application">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href=".." class="btn btn-neutral" title="Agenda"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../02-java-application/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
