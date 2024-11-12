@@ -1,11 +1,5 @@
 # Agenda
 
-- TODO 
-    - Use monitoring ns to demo kc debug on nginx
-    - Streamline jcmd / jattach doc
-        - Download 
-        - Extract from image
-
 - We have a Kubernetes cluster
     - ... in which there is an example java application
     - Alternatives for building docker image

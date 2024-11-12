@@ -9,7 +9,7 @@ nav:
   - Debugging:
       - 5. Remote debug: 05-remote-debug.md
       - 6. JKube: 06-jkube.md
-      - 7. WIP Kubernetes debugging: 07-kubernetes-debug.md
+      - 7. Kubernetes debugging: 07-kubernetes-debug.md
       - 8. JCMD / JFR / JMC: 08-jcmd-jfr-jmc.md
   - Key points: key-points.md
 theme: readthedocs

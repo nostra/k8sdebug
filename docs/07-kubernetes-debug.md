@@ -39,9 +39,6 @@ Find the pid of the java process and try to access the root:
 
     ls /proc/PID/root
 
-This does not go well.
-
-TODO Will it go better with Rancher?
 
 ### Attach an ephemeral container to the original
 
@@ -60,8 +57,6 @@ contains a shell for debugging. And possibly other tools: `k8sdebug-dev:...`
 
 # Distroless images
 
-TODO No success yet with this
-
 The problem is this:
 https://dev.to/chainguard/debugging-distroless-images-with-kubectl-and-cdebug-1dm0
 
@@ -74,12 +69,6 @@ Dockerfile:
 docker build -t debug:image .
 kind load docker-image debug:image --name k8sdebug
 ```
-
-Top level doc: TODO Consider removing
-
-- https://iximiuz.com/en/posts/docker-debug-slim-containers/
-- Adops the point of the ephemeral container attachment:
-  https://iximiuz.com/en/posts/kubernetes-ephemeral-containers/
 
 Using the same type, to easy loading:
 ```shell
