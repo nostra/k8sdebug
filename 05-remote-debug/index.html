@@ -45,24 +45,17 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <p class="caption"><span class="caption-text">Agenda</span></p>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="..">Agenda</a>
+                    <li class="toctree-l1"><a class="reference internal" href="..">0. Plan</a>
                     </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../01-kind-setup/">1. Kubernetes setup</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../01-all-set-up/">1. Our setup</a>
                     </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../02-java-application/">2. A java application</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../02-kind-setup/">2. Kubernetes setup</a>
                     </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../03-k6s/">3. Soak test with k6s</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../03-java-application/">3. A java application</a>
                     </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../04-all-set-up/">4. All set up</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../04-k6s/">4. Soak test with k6s</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Debugging</span></p>
@@ -126,12 +119,15 @@ that the application is configured with the proper jvm arguments: ##6</p>
 <p>In addition, you need to add "Remote vm debugging" to the IntelliJ debug
 configuration.</p>
 <pre><code class="language-shell">export POD=$(kubectl get pods -o=jsonpath='{range .items..metadata}{.name}{&quot;\n&quot;}{end}'|grep k8sdebug)
+echo &quot;Pod: $POD&quot;
 kubectl port-forward $POD 5005:5005
 </code></pre>
 <ul>
 <li>Create a breakpoint the controller (##2), and observe the pause. </li>
-<li>What happens to the running k6 tests?
-    -Pro-tip: Remove probes in order to avoid Kubernetes restart of pod when sleeping on breakpoint.</li>
+<li>What happens to the running k6 tests?<ul>
+<li>Pro-tip: Remove probes in order to avoid Kubernetes restart of pod when sleeping on breakpoint.</li>
+</ul>
+</li>
 </ul>
               
             </div>
@@ -143,7 +139,7 @@ kubectl port-forward $POD 5005:5005
         <a href="../06-jkube/" class="btn btn-neutral float-right" title="6. JKube">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../04-all-set-up/" class="btn btn-neutral" title="4. All set up"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../04-k6s/" class="btn btn-neutral" title="4. Soak test with k6s"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -169,7 +165,7 @@ kubectl port-forward $POD 5005:5005
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../04-all-set-up/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../04-k6s/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
         <span style="margin-left: 15px"><a href="../06-jkube/" style="color: #fcfcfc">Next &raquo;</a></span>

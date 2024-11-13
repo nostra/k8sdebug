@@ -5,18 +5,18 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="None">
+  
   
   
   <link rel="shortcut icon" href="img/favicon.ico">
-  <title>Kubernetes java debugging</title>
+  <title>0. Plan - Kubernetes java debugging</title>
   <link rel="stylesheet" href="css/theme.css" />
   <link rel="stylesheet" href="css/theme_extra.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Agenda";
+    var mkdocs_page_name = "0. Plan";
     var mkdocs_page_input_path = "index.md";
     var mkdocs_page_url = null;
   </script>
@@ -45,26 +45,21 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <p class="caption"><span class="caption-text">Agenda</span></p>
                 <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href=".">Agenda</a>
+                    <li class="toctree-l1 current"><a class="reference internal current" href=".">0. Plan</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#what-to-learn">What to learn</a>
+    </li>
     </ul>
                     </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="01-kind-setup/">1. Kubernetes setup</a>
+                    <li class="toctree-l1"><a class="reference internal" href="01-all-set-up/">1. Our setup</a>
                     </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="02-java-application/">2. A java application</a>
+                    <li class="toctree-l1"><a class="reference internal" href="02-kind-setup/">2. Kubernetes setup</a>
                     </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="03-k6s/">3. Soak test with k6s</a>
+                    <li class="toctree-l1"><a class="reference internal" href="03-java-application/">3. A java application</a>
                     </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="04-all-set-up/">4. All set up</a>
+                    <li class="toctree-l1"><a class="reference internal" href="04-k6s/">4. Soak test with k6s</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Debugging</span></p>
@@ -102,8 +97,12 @@
     <li><a href=".">Docs</a> &raquo;</li>
     
       
+        
+          <li>Agenda &raquo;</li>
+        
+      
     
-    <li>Agenda</li>
+    <li>0. Plan</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -114,7 +113,8 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="agenda">Agenda</h1>
+                <h1 id="plan">Plan</h1>
+<p><img alt="Slides" src="images/qr-to-github.png" /></p>
 <ul>
 <li>
 <p>We have a Kubernetes cluster</p>
@@ -131,8 +131,24 @@
 <li>Connecting to application in debug mode</li>
 <li>Java Flight Recorder</li>
 <li>Java Mission Control</li>
-<li>Other tools</li>
+<li>Other tools and tricks of the trade</li>
 <li>What have we learned?</li>
+</ul>
+</li>
+</ul>
+<h2 id="what-to-learn">What to learn</h2>
+<ul>
+<li>More options to debug applications in Kubernetes</li>
+<li>Soak testing</li>
+<li>Metrics help you<ul>
+<li>but determine baseline beforehand</li>
+</ul>
+</li>
+<li>Plan ahead:</li>
+<li>How are you going to debug an application?<ul>
+<li>Give and revoke temporary access</li>
+<li>Method for container introspection</li>
+<li>Document how to attach a container</li>
 </ul>
 </li>
 </ul>
@@ -143,7 +159,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="01-kind-setup/" class="btn btn-neutral float-right" title="1. Kubernetes setup">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="01-all-set-up/" class="btn btn-neutral float-right" title="1. Our setup">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
     </div>
@@ -171,7 +187,7 @@
       
       
       
-        <span style="margin-left: 15px"><a href="01-kind-setup/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="01-all-set-up/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
@@ -186,8 +202,3 @@
 
 </body>
 </html>
-
-<!--
-MkDocs version : 1.1.2
-Build Date UTC : 2024-11-12 17:04:19.892147+00:00
--->

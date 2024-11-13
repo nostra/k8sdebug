@@ -45,24 +45,17 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <p class="caption"><span class="caption-text">Agenda</span></p>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="..">Agenda</a>
+                    <li class="toctree-l1"><a class="reference internal" href="..">0. Plan</a>
                     </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../01-kind-setup/">1. Kubernetes setup</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../01-all-set-up/">1. Our setup</a>
                     </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../02-java-application/">2. A java application</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../02-kind-setup/">2. Kubernetes setup</a>
                     </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../03-k6s/">3. Soak test with k6s</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../03-java-application/">3. A java application</a>
                     </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../04-all-set-up/">4. All set up</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../04-k6s/">4. Soak test with k6s</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Debugging</span></p>
@@ -125,9 +118,8 @@ kubectl exec -it $POD -- bash
 <h1 id="what-about-distroless-images">What about distroless images?</h1>
 <ul>
 <li>A distroless image contains only the minimal setup for the application.</li>
-<li>Or the running image lacks tools to use for debugging </li>
+<li>Or the running image lacks tools to use for debugging</li>
 </ul>
-<p>See: <a href="https://dev.to/chainguard/debugging-distroless-images-with-kubectl-and-cdebug-1dm0">https://dev.to/chainguard/debugging-distroless-images-with-kubectl-and-cdebug-1dm0</a></p>
 <h2 id="attach-kubernetes-debugger">Attach Kubernetes debugger</h2>
 <p>kubectl debug --help</p>
 <pre><code>...

@@ -45,24 +45,17 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <p class="caption"><span class="caption-text">Agenda</span></p>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="..">Agenda</a>
+                    <li class="toctree-l1"><a class="reference internal" href="..">0. Plan</a>
                     </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../01-kind-setup/">1. Kubernetes setup</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../01-all-set-up/">1. Our setup</a>
                     </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../02-java-application/">2. A java application</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../02-kind-setup/">2. Kubernetes setup</a>
                     </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../03-k6s/">3. Soak test with k6s</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../03-java-application/">3. A java application</a>
                     </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../04-all-set-up/">4. All set up</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../04-k6s/">4. Soak test with k6s</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Debugging</span></p>
@@ -130,7 +123,7 @@
               
                 <h1 id="jcmd-jfr-and-jmc">JCMD, JFR and JMC</h1>
 <p>There are several ways of getting a Java Flight Recorder (JFR) recording. You
-can give command line options, or get a JDR recording started ad hoc. The 
+can give command line options, or get a JFR recording started ad hoc. The 
 latter is what I will cover here.</p>
 <h2 id="jcmd">JCMD</h2>
 <p>First question is: Do you have JCMD available? If you do not, you want to
