@@ -1,4 +1,4 @@
-# Kind setup to get Kubernetes
+# Kind installation for Kubernetes
 
 For installation of base tools and other setup details, see:
 

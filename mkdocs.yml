@@ -4,7 +4,7 @@ nav:
   - Agenda:
       - 0. Plan: index.md
       - 1. Our setup: 01-all-set-up.md
-      - 2. Kubernetes setup: 02-kind-setup.md
+      - 2. Kubernetes: 02-kind.md
       - 3. A java application: 03-java-application.md
       - 4. Soak test with k6s: 04-k6s.md
   - Debugging:
