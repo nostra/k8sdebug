@@ -1,7 +1,7 @@
 # JCMD, JFR and JMC
 
 There are several ways of getting a Java Flight Recorder (JFR) recording. You
-can give command line options, or get a JDR recording started ad hoc. The 
+can give command line options, or get a JFR recording started ad hoc. The 
 latter is what I will cover here.
 
 ## JCMD

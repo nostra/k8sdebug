@@ -30,7 +30,7 @@ flux suspend kustomization k8sdebug
 - pom.xml has configuration for hijack. Do:
 ```shell
 cd ../spring-app
-mvn k8s:remote-dev
+./mvnw k8s:remote-dev
 ```
 - Check output again: [http://k8sdebug-app.local.gd:31090/](http://k8sdebug-app.local.gd:31090/)
 

@@ -8,9 +8,7 @@ kubectl exec -it $POD -- bash
 # What about distroless images?
 
 - A distroless image contains only the minimal setup for the application.
-- Or the running image lacks tools to use for debugging 
-
-See: [https://dev.to/chainguard/debugging-distroless-images-with-kubectl-and-cdebug-1dm0](https://dev.to/chainguard/debugging-distroless-images-with-kubectl-and-cdebug-1dm0)
+- Or the running image lacks tools to use for debugging
 
 
 ## Attach Kubernetes debugger

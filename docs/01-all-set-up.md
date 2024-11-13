@@ -1,4 +1,4 @@
-# All set up
+# Our setup
 
 We have now prepared a Kubernetes cluster with a running java application. 
 We have added a set of tools to help us diagnose trouble. In your real life

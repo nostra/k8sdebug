@@ -24,12 +24,12 @@ Then `systctl -p`
 
 ## Base setup / setup of your local kubernetes
 
-Create cluster: (##1)
+Create cluster: 
 ```shell
 kind create cluster --config kind-api-cluster.yaml --name=k8sdebug
 ```
 
-Test cluster:
+Test cluster: (##1)
 ```shell
 kubectl cluster-info --context kind-k8sdebug
 ```

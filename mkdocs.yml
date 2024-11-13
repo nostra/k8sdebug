@@ -1,11 +1,12 @@
 site_name: Kubernetes java debugging
 
 nav:
-  - Agenda: index.md
-  - 1. Kubernetes setup: 01-kind-setup.md
-  - 2. A java application: 02-java-application.md
-  - 3. Soak test with k6s: 03-k6s.md
-  - 4. All set up: 04-all-set-up.md
+  - Agenda:
+      - 0. Plan: index.md
+      - 1. Our setup: 01-all-set-up.md
+      - 2. Kubernetes setup: 02-kind-setup.md
+      - 3. A java application: 03-java-application.md
+      - 4. Soak test with k6s: 04-k6s.md
   - Debugging:
       - 5. Remote debug: 05-remote-debug.md
       - 6. JKube: 06-jkube.md

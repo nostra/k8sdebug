@@ -10,10 +10,11 @@ configuration.
 
 ```shell
 export POD=$(kubectl get pods -o=jsonpath='{range .items..metadata}{.name}{"\n"}{end}'|grep k8sdebug)
+echo "Pod: $POD"
 kubectl port-forward $POD 5005:5005
 ```
 
 - Create a breakpoint the controller (##2), and observe the pause. 
 - What happens to the running k6 tests?
-    -Pro-tip: Remove probes in order to avoid Kubernetes restart of pod when sleeping on breakpoint.
+      - Pro-tip: Remove probes in order to avoid Kubernetes restart of pod when sleeping on breakpoint.
 
