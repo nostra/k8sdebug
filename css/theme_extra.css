@@ -138,3 +138,5 @@ td, th {
    border: 1px solid #e1e4e5 !important; /* csslint allow: important */
    border-collapse: collapse;
 }
+html {   zoom: 150%;   -moz-transform: scale(1.5);   -moz-transform-origin: 0 0; }
+img { float: right; margin-left: 10px; }
