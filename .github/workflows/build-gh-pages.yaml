@@ -17,7 +17,8 @@ jobs:
         run: |
           sudo apt-get update 
           sudo apt-get install -y mkdocs
-          make site
+          make
+          # After presentation just : make site
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.6.1
