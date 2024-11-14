@@ -97,6 +97,7 @@ Java Mission Control (JMC) is a GUI for JFR:
 [https://github.com/openjdk/jmc](https://github.com/openjdk/jmc)
 
 Let's get a more representative dump:
+
 - suspend flux
 - use the image with the "manual" tag
 - run the tests
