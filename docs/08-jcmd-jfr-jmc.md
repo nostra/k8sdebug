@@ -29,7 +29,7 @@ docker cp tmp-del:/usr/lib/jvm/jdk-23-bellsoft-x86_64/ jdk
 Then you copy the full jdk into your container:
 
 ```shell
-export POD=$(kubectl get pods -o=jsonpath='{range .items..metadata}{.name}{"\n"}{end}'|grep k8sdebug)
+export POD=$(podhash k8sdebug)
 kubectl cp jdk $POD:/tmp/jdk
 kubectl exec -it $POD -- bash
 ```
@@ -60,7 +60,7 @@ the jattach tool (if you trust its origins):
 [https://github.com/jattach/jattach/releases](https://github.com/jattach/jattach/releases)
 
 ```shell
-export POD=$(kubectl get pods -o=jsonpath='{range .items..metadata}{.name}{"\n"}{end}'|grep k8sdebug)
+export POD=$(podhash k8sdebug)
 curl -L -o - https://github.com/jattach/jattach/releases/download/v2.2/jattach-linux-x64.tgz|tar -xzf -
 kubectl cp jattach $POD:/tmp/jattach
 ```
@@ -72,13 +72,13 @@ level=error msg="exec failed: unable to start container process: exec: \"tar\": 
 ```
 Just pipe it:
 ```
-cat jattach| kubectl exec -i POD-$HASH -- bash -c "cat > /tmp/jattach" 
+cat jattach| kubectl exec -i $(podhash k8sdebug) -- bash -c "cat > /tmp/jattach" 
 ```
 
 The commands are then analogous to jcmd from the JDK distribution.
 
 ```
-kubectl exec -it k8sdebug-app-$HASH -- bash
+kubectl exec -it $(podhash k8sdebug) -- bash
 /tmp/jattach 7 jcmd help
 /tmp/jattach 7 jcmd JFR.start
 ```

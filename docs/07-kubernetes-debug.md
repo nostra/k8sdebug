@@ -1,8 +1,7 @@
 # ssh into the pod
 
 ```shell
-export POD=$(kubectl get pods -o=jsonpath='{range .items..metadata}{.name}{"\n"}{end}'|grep k8sdebug)
-kubectl exec -it $POD -- bash
+kubectl exec -it $(podhash k8sdebug) -- bash
 ```
 
 # What about distroless images?
@@ -27,8 +26,7 @@ kubectl debug --help
 ## Copy the failing container, examining it with ubuntu image:
 
 ```shell
-export POD=$(kubectl get pods -o=jsonpath='{range .items..metadata}{.name}{"\n"}{end}'|grep k8sdebug)
-kubectl debug -it $POD --image bellsoft/liberica-openjdk-debian:23-cds
+kubectl debug -it $(podhash k8sdebug) --image bellsoft/liberica-openjdk-debian:23-cds
 ```
 
     apt-get install procps    
@@ -42,7 +40,9 @@ Find the pid of the java process and try to access the root:
 
 Using the same image as the original container:
 
-    kubectl debug -it k8sdebug-$HASH --image k8sdebug:manual --target k8sdebug -- bash
+```shell
+kubectl debug -it $(podhash k8sdebug) --image k8sdebug:manual --target k8sdebug -- bash
+```
 
 Find the pid (by looking at `/proc`) and examine the directory structure:
 
@@ -53,12 +53,9 @@ Jcmd does not work with this, unfortunately.
 What you can consider making, is an image which is functionally identical, but that
 contains a shell for debugging. And possibly other tools: `k8sdebug-dev:...`
 
-# Distroless images
+# Trouble with UID
 
-The problem is this:
-https://dev.to/chainguard/debugging-distroless-images-with-kubectl-and-cdebug-1dm0
-
-Dockerfile:
+Dockerfile: ##7
 
     FROM bellsoft/liberica-openjdk-debian:23
     USER 1000
@@ -68,13 +65,8 @@ docker build -t debug:image .
 kind load docker-image debug:image --name k8sdebug
 ```
 
-Using the same type, to easy loading:
-```shell
-kubectl debug -it k8sdebug-$HASH --image bellsoft/liberica-openjdk-debian:23 --target k8sdebug
-``` 
-
 Create a copy of the pods with problems, and attach to it:
 
-    kubectl debug -it k8sdebug-$HASH --image k8sdebug:manual --share-processes --copy-to=debug -- bash
+    kubectl debug -it k8sdebug-$HASH --image k8sdebug:debug --share-processes --copy-to=debug -- bash
 
 The attached debug container does not have probes, so it won't get restarted.
