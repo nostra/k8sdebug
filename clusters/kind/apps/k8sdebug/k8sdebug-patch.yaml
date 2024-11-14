@@ -13,8 +13,8 @@ spec:
       shareProcessNamespace: true
       containers:
         - name: k8sdebug ##5
-          image: k8sdebug:manual # {"$imagepolicy": "apps:k8sdebug"}
-          # image: k8sdebug:0.0.1-SNAPSHOT # JIB crashes too quickly
+          # image: k8sdebug:manual # {"$imagepolicy": "apps:k8sdebug"}
+          image: k8sdebug:0.0.1-SNAPSHOT # JIB crashes too quickly
           env:
             - {}
             - name: MEMORY_SETTINGS
