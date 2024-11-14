@@ -112,8 +112,7 @@
             <div class="section">
               
                 <h1 id="ssh-into-the-pod">ssh into the pod</h1>
-<pre><code class="language-shell">export POD=$(kubectl get pods -o=jsonpath='{range .items..metadata}{.name}{&quot;\n&quot;}{end}'|grep k8sdebug)
-kubectl exec -it $POD -- bash
+<pre><code class="language-shell">kubectl exec -it $(podhash k8sdebug) -- bash
 </code></pre>
 <h1 id="what-about-distroless-images">What about distroless images?</h1>
 <ul>
@@ -132,8 +131,7 @@ kubectl debug mypod -it --image=busybox --copy-to=my-debugger
 kubectl debug node/mynode -it --image=busybox
 </code></pre>
 <h2 id="copy-the-failing-container-examining-it-with-ubuntu-image">Copy the failing container, examining it with ubuntu image:</h2>
-<pre><code class="language-shell">export POD=$(kubectl get pods -o=jsonpath='{range .items..metadata}{.name}{&quot;\n&quot;}{end}'|grep k8sdebug)
-kubectl debug -it $POD --image bellsoft/liberica-openjdk-debian:23-cds
+<pre><code class="language-shell">kubectl debug -it $(podhash k8sdebug) --image bellsoft/liberica-openjdk-debian:23-cds
 </code></pre>
 <pre><code>apt-get install procps
 </code></pre>
@@ -142,7 +140,7 @@ kubectl debug -it $POD --image bellsoft/liberica-openjdk-debian:23-cds
 </code></pre>
 <h3 id="attach-an-ephemeral-container-to-the-original">Attach an ephemeral container to the original</h3>
 <p>Using the same image as the original container:</p>
-<pre><code>kubectl debug -it k8sdebug-$HASH --image k8sdebug:manual --target k8sdebug -- bash
+<pre><code class="language-shell">kubectl debug -it $(podhash k8sdebug) --image k8sdebug:manual --target k8sdebug -- bash
 </code></pre>
 <p>Find the pid (by looking at <code>/proc</code>) and examine the directory structure:</p>
 <pre><code>ls /proc/6/root/workspace/org/springframework/
@@ -150,21 +148,16 @@ kubectl debug -it $POD --image bellsoft/liberica-openjdk-debian:23-cds
 <p>Jcmd does not work with this, unfortunately. </p>
 <p>What you can consider making, is an image which is functionally identical, but that
 contains a shell for debugging. And possibly other tools: <code>k8sdebug-dev:...</code></p>
-<h1 id="distroless-images">Distroless images</h1>
-<p>The problem is this:
-https://dev.to/chainguard/debugging-distroless-images-with-kubectl-and-cdebug-1dm0</p>
-<p>Dockerfile:</p>
+<h1 id="trouble-with-uid">Trouble with UID</h1>
+<p>Dockerfile: ##7</p>
 <pre><code>FROM bellsoft/liberica-openjdk-debian:23
 USER 1000
 </code></pre>
 <pre><code class="language-shell">docker build -t debug:image .
 kind load docker-image debug:image --name k8sdebug
 </code></pre>
-<p>Using the same type, to easy loading:</p>
-<pre><code class="language-shell">kubectl debug -it k8sdebug-$HASH --image bellsoft/liberica-openjdk-debian:23 --target k8sdebug
-</code></pre>
 <p>Create a copy of the pods with problems, and attach to it:</p>
-<pre><code>kubectl debug -it k8sdebug-$HASH --image k8sdebug:manual --share-processes --copy-to=debug -- bash
+<pre><code>kubectl debug -it k8sdebug-$HASH --image k8sdebug:debug --share-processes --copy-to=debug -- bash
 </code></pre>
 <p>The attached debug container does not have probes, so it won't get restarted.</p>
               

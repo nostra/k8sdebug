@@ -141,7 +141,7 @@ docker create  --platform linux/amd64 --name tmp-del $IMAGE
 docker cp tmp-del:/usr/lib/jvm/jdk-23-bellsoft-x86_64/ jdk
 </code></pre>
 <p>Then you copy the full jdk into your container:</p>
-<pre><code class="language-shell">export POD=$(kubectl get pods -o=jsonpath='{range .items..metadata}{.name}{&quot;\n&quot;}{end}'|grep k8sdebug)
+<pre><code class="language-shell">export POD=$(podhash k8sdebug)
 kubectl cp jdk $POD:/tmp/jdk
 kubectl exec -it $POD -- bash
 </code></pre>
@@ -163,7 +163,7 @@ jcmd 7 JFR.dump name=1 filename=/tmp/filename1.jfr
 <p>To copy a whole JDK feels both wasteful, and dirty. An alternative is to use
 the jattach tool (if you trust its origins):
 <a href="https://github.com/jattach/jattach/releases">https://github.com/jattach/jattach/releases</a></p>
-<pre><code class="language-shell">export POD=$(kubectl get pods -o=jsonpath='{range .items..metadata}{.name}{&quot;\n&quot;}{end}'|grep k8sdebug)
+<pre><code class="language-shell">export POD=$(podhash k8sdebug)
 curl -L -o - https://github.com/jattach/jattach/releases/download/v2.2/jattach-linux-x64.tgz|tar -xzf -
 kubectl cp jattach $POD:/tmp/jattach
 </code></pre>
@@ -171,10 +171,10 @@ kubectl cp jattach $POD:/tmp/jattach
 <pre><code>level=error msg=&quot;exec failed: unable to start container process: exec: \&quot;tar\&quot;: executable file not found in $PATH&quot;
 </code></pre>
 <p>Just pipe it:</p>
-<pre><code>cat jattach| kubectl exec -i POD-$HASH -- bash -c &quot;cat &gt; /tmp/jattach&quot; 
+<pre><code>cat jattach| kubectl exec -i $(podhash k8sdebug) -- bash -c &quot;cat &gt; /tmp/jattach&quot; 
 </code></pre>
 <p>The commands are then analogous to jcmd from the JDK distribution.</p>
-<pre><code>kubectl exec -it k8sdebug-app-$HASH -- bash
+<pre><code>kubectl exec -it $(podhash k8sdebug) -- bash
 /tmp/jattach 7 jcmd help
 /tmp/jattach 7 jcmd JFR.start
 </code></pre>
