@@ -187,10 +187,12 @@ jcmd 7 GC.class_histogram|more
 <h2 id="jmc">JMC</h2>
 <p>Java Mission Control (JMC) is a GUI for JFR:
 <a href="https://github.com/openjdk/jmc">https://github.com/openjdk/jmc</a></p>
-<p>Let's get a more representative dump:
-- suspend flux
-- use the image with the "manual" tag
-- run the tests</p>
+<p>Let's get a more representative dump:</p>
+<ul>
+<li>suspend flux</li>
+<li>use the image with the "manual" tag</li>
+<li>run the tests</li>
+</ul>
 <pre><code class="language-shell">kubectl create -k ../clusters/kind/apps/k6test/
 </code></pre>
               
