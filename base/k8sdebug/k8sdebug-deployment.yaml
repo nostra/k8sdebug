@@ -12,6 +12,7 @@ spec:
       labels:
         app.kubernetes.io/name: k8sdebug
     spec:
+      # Enabled in patch
       # shareProcessNamespace: true
       serviceAccountName: k8sdebug-sa
       containers:

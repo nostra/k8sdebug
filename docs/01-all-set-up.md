@@ -1,6 +1,6 @@
 # Our setup
 
-We have now prepared a Kubernetes cluster with a running java application. 
+We have a prepared Kubernetes cluster with a running java application. 
 We have added a set of tools to help us diagnose trouble. In your real life
 project, you most likely will have to add these tools  after-the-fact, i.e. 
 when you find you need to have a harder look at a problem.

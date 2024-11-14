@@ -38,7 +38,7 @@ public class HelloController {
             String id = counter.get() + "-" + UUID.randomUUID().toString().substring(0, 6);
             Counter requestCounter = Counter.builder("app_metric_with_error")
                     .description("A metric which intentionally creates memory pressure")
-                    .tags("request_id", id)
+                    .tags("correlation_id", id)
                     .register(registry);
 
             requestCounter.increment();
