@@ -1,5 +1,6 @@
 # Plan
 
+Link to these pages:
 ![Slides](images/qr-to-github.png)
 
 - We have a Kubernetes cluster
