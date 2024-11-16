@@ -234,7 +234,6 @@ mcalert.prometheus.endpoints.local-prometheus-auth.header[0].name=Authorization
 mcalert.prometheus.endpoints.local-prometheus-auth.header[0].content=Basic bmVvbjpzZXNhbQ==
 </code></pre>
 <h2 id="commands-cheat-sheet">Commands / cheat sheet</h2>
-<p>Current alerts: </p>
 <table>
 <thead>
 <tr>
@@ -266,6 +265,14 @@ mcalert.prometheus.endpoints.local-prometheus-auth.header[0].content=Basic bmVvb
 <tr>
 <td><code>kubectl config set-context --current --namespace=apps</code></td>
 <td>Set active namespace to apps</td>
+</tr>
+<tr>
+<td><code>kubectl edit deployment k8sdebug</code></td>
+<td>Adjust a running deployment. Flux need to be suspended</td>
+</tr>
+<tr>
+<td><code>kubectl rollout undo deployment k8sdebug</code></td>
+<td>Revert to previous setting after an edit</td>
 </tr>
 </tbody>
 </table>
