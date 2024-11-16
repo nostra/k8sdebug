@@ -53,6 +53,17 @@ Jcmd does not work with this, unfortunately.
 What you can consider making, is an image which is functionally identical, but that
 contains a shell for debugging. And possibly other tools: `k8sdebug-dev:...`
 
+## Reconnecting to the ephemeral container
+
+The ephemeral container is still available while the original pod is running. 
+You can re-attach it by finding the container id / name:
+
+    kubectl get pod $(podhash k8sdebug) -o yaml |grep -A10 ephemeralContainers
+
+Then attach to it:
+
+    kubectl attach -it $(podhash k8sdebug) -c THE_NAME_YOU found
+
 # Trouble with UID
 
 Dockerfile: ##7
@@ -67,6 +78,6 @@ kind load docker-image debug:image --name k8sdebug
 
 Create a copy of the pods with problems, and attach to it:
 
-    kubectl debug -it k8sdebug-$HASH --image k8sdebug:debug --share-processes --copy-to=debug -- bash
+    kubectl debug -it $(podhash k8sdebug) --image k8sdebug:debug --share-processes --copy-to=debug -- bash
 
 The attached debug container does not have probes, so it won't get restarted.

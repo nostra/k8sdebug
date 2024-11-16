@@ -16,7 +16,11 @@ cd ../spring-app
 This builds and sets up the image (##3) with JiB. The setup
 takes a considerable amount of time... You get an image primed with
 a rather obtuse setup with values you might want to adjust.
-[https://github.com/GoogleContainerTools/jib?tab=readme-ov-file#jib](https://github.com/GoogleContainerTools/jib?tab=readme-ov-file#jib)
+
+See:
+
+- [https://github.com/GoogleContainerTools/jib?tab=readme-ov-file#jib](https://github.com/GoogleContainerTools/jib?tab=readme-ov-file#jib)
+- [https://github.com/paketo-buildpacks/bellsoft-liberica?tab=readme-ov-file#configuration](https://github.com/paketo-buildpacks/bellsoft-liberica?tab=readme-ov-file#configuration)
 
 ## Alternative jib build
 

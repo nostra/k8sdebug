@@ -137,8 +137,6 @@ mcalert.prometheus.endpoints.local-prometheus-auth.header[0].content=Basic bmVvb
 
 ## Commands / cheat sheet
 
-Current alerts: 
-
 | Command                                                  | Description                                                                |
 |----------------------------------------------------------|----------------------------------------------------------------------------|
 | `kubectl get pods -A`                                    | Get pods in all namespaces. All should be running ok                       |
@@ -147,6 +145,8 @@ Current alerts:
 | `flux reconcile source git k8sdebug`                     | Force reconcilliation of git                                               |
 | `flux suspend kustomization -n flux-system flux-cluster` | Stop reconcillation. Start it again with "resume"                          |
 | `kubectl config set-context --current --namespace=apps`  | Set active namespace to apps                                               |
+| `kubectl edit deployment k8sdebug`                       | Adjust a running deployment. Flux need to be suspended                     |
+| `kubectl rollout undo deployment k8sdebug`               | Revert to previous setting after an edit                                   |
 
 ### If trouble with nginx-proxy and prometheus
 
