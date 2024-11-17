@@ -26,7 +26,7 @@ spec:
               #value: "$(MEMORY_SETTINGS) $(REMOTE_DEBUG)"
             - name: APP_ACCELERATOR # Increase value use more memory
               value: "1"
-            # Setting buildpack value, helps running the application with Jib
+            # Setting buildpack value, helps running the application with Jib / Paketo
             # See: https://paketo.io/docs/howto/java/#configure-the-jvm-at-runtime
             #- name: BPL_JVM_THREAD_COUNT
             #  value: "70"

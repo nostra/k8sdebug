@@ -20,6 +20,7 @@ a rather obtuse setup with values you might want to adjust.
 See:
 
 - [https://github.com/GoogleContainerTools/jib?tab=readme-ov-file#jib](https://github.com/GoogleContainerTools/jib?tab=readme-ov-file#jib)
+- [https://github.com/paketo-buildpacks/spring-boot](https://github.com/paketo-buildpacks/spring-boot)
 - [https://github.com/paketo-buildpacks/bellsoft-liberica?tab=readme-ov-file#configuration](https://github.com/paketo-buildpacks/bellsoft-liberica?tab=readme-ov-file#configuration)
 
 ## Alternative jib build
