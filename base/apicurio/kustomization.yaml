@@ -1,0 +1,7 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- apicurio-ns.yaml
+- apicurio.yaml
+- apicurio-studio-sa.yaml
+- apicurio-studio-ui-sa.yaml

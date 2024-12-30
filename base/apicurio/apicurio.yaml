@@ -1,0 +1,205 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apicurio-studio
+  namespace: apicurio
+  labels:
+    app: apicurio-studio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apicurio-studio
+  template:
+    metadata:
+      labels:
+        app: apicurio-studio
+    spec:
+      serviceAccountName: apicurio-studio
+      containers:
+        - name: apicurio-studio
+          image: quay.io/apicurio/apicurio-studio:1.0.0.Beta1
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          resources:
+            requests:
+              cpu: 200m
+              memory: 512Mi
+            limits:
+              memory: 512Mi
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          startupProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 4
+            periodSeconds: 4
+            failureThreshold: 20
+          env:
+            - name: QUARKUS_DATASOURCE_DB_KIND
+              value: "h2"
+            - name: QUARKUS_DATASOURCE_JDBC_URL
+              value: "jdbc:h2:mem:apicurio-studio;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE"
+            - name: QUARKUS_DATASOURCE_USERNAME
+              value: "sa"
+            - name: QUARKUS_DATASOURCE_PASSWORD
+              value: ""
+            - name: APICURIO_ENABLE_METRICS
+              value: "true"
+
+            # - name: QUARKUS_DATASOURCE_DB_KIND
+            #   value: "postgresql"
+            # - name: QUARKUS_DATASOURCE_JDBC_URL
+            #   value: "jdbc:postgresql://apicurio-postgresql:5432/apicuriodb"
+            # - name: QUARKUS_DATASOURCE_USERNAME
+            #   value: "apicurio"
+            # - name: QUARKUS_DATASOURCE_PASSWORD
+            #   value: "apicurio"
+
+            - name: APICURIO_HUB_API_DISABLE_ANONYMOUS_READ_ACCESS
+              value: "false"
+            - name: APICURIO_HUB_API_FEATURE_SECURITY_ENABLED
+              value: "false"
+            - name: APICURIO_HUB_API_FEATURE_SECURITY_OIDC_ENABLED
+              value: "false"
+
+            - name: APICURIO_HUB_API_URL
+              value: http://apicurio-studio.apicurio.svc.cluster.local:8080/api-hub
+            - name: QUARKUS_HTTP_CORS
+              value: "true"
+            - name: QUARKUS_HTTP_CORS_ORIGINS
+              value: "/.*/"
+            - name: QUARKUS_HTTP_CORS_METHODS
+              value: "GET, PUT, POST, DELETE, HEAD, OPTIONS"
+            - name: QUARKUS_HTTP_CORS_HEADERS
+              value: "accept, authorization, content-type, x-requested-with, apicurio-flow-id, apicurio-design-id, apicurio-editing-session-id"
+            - name: QUARKUS_HTTP_CORS_MAX_AGE
+              value: "3600"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apicurio-studio-ui
+  namespace: apicurio
+  labels:
+    app: apicurio-studio-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apicurio-studio-ui
+  template:
+    metadata:
+      labels:
+        app: apicurio-studio-ui
+    spec:
+      serviceAccountName: apicurio-studio-ui
+      containers:
+        - name: apicurio-studio-ui
+          image:  quay.io/apicurio/apicurio-studio-ui:1.0.0.Beta1
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          env:
+            - name: HTTP_PORT
+              value: "8080"
+            - name: BACKEND_URL
+              value: http://apicurio-studio.apicurio.svc.cluster.local:8080
+            - name: ENABLE_ANONYMOUS_ACCESS
+              value: "true"
+            - name: ENABLE_AUTH
+              value: "false"
+            - name: ENABLE_OIDC_AUTH
+              value: "false"
+            - name: ENABLE_INTEGRATED_REGISTRY
+              value: "false"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apicurio-studio
+  namespace: apicurio
+spec:
+  selector:
+    app: apicurio-studio
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apicurio-studio-ui
+  namespace: apicurio
+spec:
+  selector:
+    app: apicurio-studio-ui
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+
+#---
+#apiVersion: networking.k8s.io/v1
+#kind: Ingress
+#metadata:
+#  name: apicurio-studio-ingress
+#  namespace: apicurio
+#  annotations:
+#    nginx.ingress.kubernetes.io/rewrite-target: /
+#spec:
+#  ingressClassName: nginx
+#  rules:
+#    - host: apicurio.local.gd
+#      http:
+#        paths:
+#          - path: /
+#            pathType: Prefix
+#            backend:
+#              service:
+#                name: apicurio-studio-ui
+#                port:
+#                  number: 80
+#          - path: /api-hub
+#            pathType: Prefix
+#            backend:
+#              service:
+#                name: apicurio-studio
+#                port:
+#                  number: 8080
+#          - path: /actuator
+#            pathType: Prefix
+#            backend:
+#              service:
+#                name: apicurio-studio
+#                port:
+#                  number: 8080
