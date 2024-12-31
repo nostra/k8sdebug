@@ -3,5 +3,7 @@ kind: Kustomization
 resources:
   - ../../../../base/monitoring
   - k8sdebug-serviceMonitor.yaml
+  - prometheus-list-pods-cr.yaml
+  - prometheus-list-pods-crb.yaml
 patches:
   - path: grafana-env-patch.yaml
