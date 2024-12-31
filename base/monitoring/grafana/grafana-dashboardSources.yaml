@@ -33,6 +33,15 @@ data:
           },
           "orgId": 1,
           "type": "file"
+        },        {
+          "folder": "cnpg",
+          "folderUid": "",
+          "name": "cnpg",
+          "options": {
+            "path": "/grafana-dashboard-definitions/cnpg"
+          },
+          "orgId": 1,
+          "type": "file"
         },
         {
           "folder": "Meta-monitoring",

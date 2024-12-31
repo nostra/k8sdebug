@@ -2,6 +2,9 @@
 
 https://www.apicur.io/studio/docs/apicurio-studio/1.0.x/index.html
 
+**NOTE** It does not look like apicurio has support for postgresql without
+fiddling with the source.
+
 ```shell
 kubectl port-forward svc/apicurio-studio 8080
 ```

@@ -5,3 +5,5 @@ resources:
 - pg-cluster.yaml
 - prometheusrule.yaml
 - pg-cluster-ns.yaml
+# - acpicurio-db.yaml
+- apicurio-secret.yaml

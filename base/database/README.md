@@ -8,12 +8,17 @@
 
 ```shell
 curl -L -o prometheusrule.yaml https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/docs/src/samples/monitoring/prometheusrule.yaml
-
 ```
 
+## Connecting as user
+
 ```shell
-helm template \
-  -f https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/docs/src/samples/monitoring/kube-stack-config.yaml \
-  prometheus-community \
-  prometheus-community/kube-prometheus-stack > 
+kubectl run psql-shell --rm -i --tty --image postgres:17-alpine -n cnpg-cluster -- psql "postgresql://apicurio:apicurio-password@pg-cluster-rw.cnpg-cluster:5432/apicuriodb"
+```
+
+## Use of cnpg
+
+```
+kubectl-cnpg status pg-cluster
+kubectl-cnpg psql pg-cluster 
 ```

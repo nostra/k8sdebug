@@ -29,6 +29,9 @@ spec:
             - mountPath: /grafana-dashboard-definitions/jvm/jvm
               name: grafana-dashboard-jvm
               readOnly: false
+            - mountPath: /grafana-dashboard-definitions/cnpg/cnpg
+              name: grafana-dashboard-cnpg
+              readOnly: false
             - mountPath: /grafana-dashboard-definitions/meta/grafana
               name: grafana-dashboard-grafana
               readOnly: false
@@ -78,6 +81,9 @@ spec:
         - configMap:
             name: grafana-dashboard-jvm
           name: grafana-dashboard-jvm
+        - configMap:
+            name: grafana-dashboard-cnpg
+          name: grafana-dashboard-cnpg
         - configMap:
             name: grafana-dashboard-nginx-controller
           name: grafana-dashboard-nginx-controller

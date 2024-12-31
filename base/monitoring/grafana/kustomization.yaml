@@ -38,6 +38,9 @@ configMapGenerator:
     files:
       # N/A - grafana-dashboard-definitions/prometheus/prometheus-remote-write.json
       - grafana-dashboard-definitions/prometheus/prometheus.json
+  - name: grafana-dashboard-cnpg
+    files:
+      - grafana-dashboard-definitions/cnpg/grafana-dashboard.json
   - name: grafana-dashboard-grafana
     files:
       - grafana-dashboard-definitions/grafana-overview/grafana-overview.json

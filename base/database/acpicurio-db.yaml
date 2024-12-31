@@ -1,0 +1,11 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: apicuriodb
+spec:
+  # NB Not using this at the moment, but rather using the initdb
+  cluster:
+    name: pg-cluster
+  name: apicuriodb
+  owner: apicurio
+  ensure: present

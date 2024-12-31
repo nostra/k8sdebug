@@ -6,5 +6,25 @@ spec:
   instances: 1
   storage:
     size: 1Gi
+  postgresql:
+    parameters:
+      max_connections: "10"
+      shared_buffers: 16MB
+  bootstrap:
+    initdb:
+      encoding: "UTF8"
+      database: "apicuriodb"
+      owner: apicurio
+  managed:
+    roles:
+      - name: apicurio
+        comment: "Apicurio database"
+        createdb: false
+        createrole: false
+        ensure: present
+        login: true
+        passwordSecret:
+          name: apicurio
+        superuser: false
   monitoring:
     enablePodMonitor: true
