@@ -15,7 +15,7 @@
 	<description>Java Kubernetes Debugging </description>
 	<properties>
 		<java.version>23</java.version>
-		<kubernetes-maven-plugin.version>1.17.0</kubernetes-maven-plugin.version>
+		<kubernetes-maven-plugin.version>1.18.0</kubernetes-maven-plugin.version>
 	</properties>
 	<!-- ##3 -->
 	<dependencies>
